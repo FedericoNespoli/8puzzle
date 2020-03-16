@@ -2,7 +2,7 @@ public class structNode
 {
 	int m[][];
 	int x,y;
-	String prevMov;
+	structNode parent;
 
 	public void assign(int a[][])
 	{
@@ -21,16 +21,18 @@ public class structNode
 					k=false;
 		return k;
 	}
+	
+	//find zero position in matrix
 	public void findZero()
 	{
 		boolean k=false;
-		for(int i=0;i<m[0].length && k!=false;i++)
-			for(int j=0;j<m[1].length && k!=false;j++)
+		for(int i=0;i<m[0].length && k==false;i++)
+			for(int j=0;j<m[1].length && k==false;j++)
 				if(m[i][j]==0)
 				{
 					k=true;
-					x=i;
-					y=j;
+					this.x=i;
+					this.y=j;
 				}
 	}
 	
@@ -40,40 +42,45 @@ public class structNode
 	public void zeroRight()
 	{
 		int app;
-		app=m[x][y+1];
-		m[x][y+1]=0;
-		m[x][y]=app;
-		y+=1;
+		app=this.m[x][y+1];
+		this.m[x][y+1]=0;
+		this.m[x][y]=app;
+		this.y+=1;
+		this.findZero();
+		
 	}
 	
 	//function that move the empty cell to left
 	public void zeroLeft()
 	{
 		int app;
-		app=m[x][y-1];
-		m[x][y-1]=0;
-		m[x][y]=app;
-		y-=1;
+		app=this.m[x][y-1];
+		this.m[x][y-1]=0;
+		this.m[x][y]=app;
+		this.y-=1;
+		this.findZero();
 	}
 	
 	//function that move the empty cell up
 	public void zeroUp()
 	{
 		int app;
-		app=m[x-1][y];
-		m[x-1][y]=0;
-		m[x][y]=app;
-		x-=1;
+		app=this.m[x-1][y];
+		this.m[x-1][y]=0;
+		this.m[x][y]=app;
+		this.x-=1;
+		this.findZero();
 	}
 	
 	//function that move the empty cell down
 	public void zeroDown()
 	{
 		int app;
-		app=m[x-1][y];
-		m[x-1][y]=0;
-		m[x][y]=app;
-		x+=1;
+		app=this.m[x+1][y];
+		this.m[x+1][y]=0;
+		this.m[x][y]=app;
+		this.x+=1;
+		this.findZero();
 	}
 	
 
@@ -82,10 +89,33 @@ public class structNode
 	public boolean isGoal(int solution[][])
 	{
 		boolean k=true;
-		for(int i=0;i<3 && k!=false;i++)
-			for(int j=0;j<3 && k!=false;j++)
-				if(solution[i][j]!=m[i][j])
-			k=false;
+		for(int i=0;i<m[0].length && k!=false;i++)
+			for(int j=0;j<m[1].length && k!=false;j++)
+				if(solution[i][j]!=this.m[i][j])
+					k=false;
 		return k;
+	}
+	
+	public structNode clone()
+	{
+		structNode app=new structNode();
+		app.assign(this.m);
+		app.x=this.x;
+		app.y=this.y;
+		app.parent=this.parent;
+		return app;
+	}
+	
+	//print matrix and zero coord of structNode
+	public void print()
+	{
+		System.out.print("[");
+		for(int i=0;i<m[0].length;i++)
+			for(int j=0;j<m[1].length;j++)
+				if((j+1)%3==0)
+					System.out.print("el i["+i+"] e j["+j+"] valore"+m[i][j]+"\n");
+				else
+					System.out.print("el i["+i+"] e j["+j+"] valore"+m[i][j]+"     ");
+		System.out.print("x:"+this.x+"   Y:"+this.y+"]");
 	}
 }
