@@ -4,6 +4,10 @@ public class structNode
 	int x,y;
 	structNode parent;
 
+	public structNode()
+	{
+		
+	}
 	public void assign(int a[][])
 	{
 		m=new int[a[0].length][a[1].length];
@@ -11,7 +15,7 @@ public class structNode
 			for(int j=0;j<a[1].length;j++)
 				this.m[i][j]=a[i][j];
 	}
-
+	//return true if 2 nodes have the same matrix
 	public boolean isSame(structNode n)
 	{
 		boolean k=true;
@@ -46,7 +50,6 @@ public class structNode
 		this.m[x][y+1]=0;
 		this.m[x][y]=app;
 		this.y+=1;
-		this.findZero();
 		
 	}
 	
@@ -58,7 +61,6 @@ public class structNode
 		this.m[x][y-1]=0;
 		this.m[x][y]=app;
 		this.y-=1;
-		this.findZero();
 	}
 	
 	//function that move the empty cell up
@@ -69,7 +71,6 @@ public class structNode
 		this.m[x-1][y]=0;
 		this.m[x][y]=app;
 		this.x-=1;
-		this.findZero();
 	}
 	
 	//function that move the empty cell down
@@ -80,7 +81,6 @@ public class structNode
 		this.m[x+1][y]=0;
 		this.m[x][y]=app;
 		this.x+=1;
-		this.findZero();
 	}
 	
 
