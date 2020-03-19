@@ -1,25 +1,17 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
+
 public class otto 
 {
+	double inizio, fine;
 	//scacchiere delle due dimensioni
-	private int scacchiera8 [][]= new int [][]{{1,3,2},
-											   {4,0,5},
-											   {6,7,8}};
+	private int scacchiera8 [][]= new int [][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{0,13,14,15}};
 	private int [][] solution;
 	
 	structNode node=new structNode();
-	
-	//path to the solution
-	private Stack <structNode> path;
-	
-	//list that contains analyzed nodes
-	private List<structNode> closedList = new ArrayList<structNode>();
-	
-	//list that contains node that have to be analyzed
+	//analyzed items
 	private List<structNode> openList = new ArrayList<structNode>();
-	
+
 	//private int scacchiera15 [][]=new int [4][4];
 	
 	//list of seen states
@@ -27,11 +19,12 @@ public class otto
 	
 	otto()
 	{
-		//gestione creazione matrice e selezione tabella
-		//eliminerò poi scacchiera 8 e la sostituirò con il vettore in input
+		//manage the insertion of 4x4 or 3x3
+		
+		inizio = System.currentTimeMillis();
 		node.assign(scacchiera8);
 		node.findZero();
-		node.parent=null;
+		node.assignMov('S');
 		openList.add(node);
 		if(node.m.length==3)
 			solution= new int[][] {{1,2,3},{4,5,6},{7,8,0}};
@@ -39,91 +32,78 @@ public class otto
 			solution= new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};
 	}
 	
-	
+	//----------------------------------------------------------------------------------------------
 	//solve the 8 puzzle with breadth search
 	public structNode ampiezza()
 	{
-		boolean goal=false,first=true;
+		boolean goal=false;
 		structNode structGoal=new structNode();
 		structNode copy;
 		structNode app=node.clone();
-		//loop
 		int k=0;
 		
 		while(!openList.isEmpty()&&!goal)
 		{
-			if(app.x!=2 && (first||app.parent.x!=app.x+1))
+			if(app.x!=app.mLenght()-1 && app.mov.charAt(app.printMov().length()-1)!='U')
 			{
 				copy=app.clone();
-				copy.parent=app;
-				copy.zeroDown();					
-				if(!contain(copy,closedList)&&!contain(copy,openList))
-					openList.add(copy);
+				copy.zeroDown(true);					
+				openList.add(copy);
 				if(copy.isGoal(solution))
 				{
 					goal=true;
-					return copy;
+					structGoal=copy;
 				}
 			}
 			
-			if(app.x!=0 && (first||app.parent.x!=app.x-1))
+			if(app.x!=0 && app.mov.charAt(app.printMov().length()-1)!='D')
 			{
 				copy=app.clone();
-				copy.parent=app;
-				copy.zeroUp();
-				if(!contain(copy,closedList)&&!contain(copy,openList))
-					openList.add(copy);
+				copy.zeroUp(true);
+				openList.add(copy);
 				if(copy.isGoal(solution))
 				{
 					goal=true;
-					return copy;
+					structGoal=copy;
 				}
 			}
 			
-			if(app.y!=2 && (first||app.parent.y!=app.y+1))
+			if(app.y!=app.mLenght()-1 && app.mov.charAt(app.printMov().length()-1)!='L')
 			{
 				copy=app.clone();
-				copy.parent=app;
-				copy.zeroRight();
-				if(!contain(copy,closedList)&&!contain(copy,openList))
-					openList.add(copy);
+				copy.zeroRight(true);
+				openList.add(copy);
 				if(copy.isGoal(solution))
 				{
 					goal=true;
-					return copy;
+					structGoal=copy;
 				}
 			}
 			
-			if(app.y!=0 && (first||app.parent.y!=app.y-1))
+			if(app.y!=0 && app.mov.charAt(app.printMov().length()-1)!='R')
 			{
 				copy=app.clone();
-				copy.parent=app;
-				copy.zeroLeft();
-				if(!contain(copy,closedList)&&!contain(copy,openList))
-					openList.add(copy);
+				copy.zeroLeft(true);
+				openList.add(copy);
 				if(copy.isGoal(solution))
 				{
 					goal=true;
-					return copy;
+					structGoal=copy;
 				}
 			}
-			//first=false;
-			closedList.add(app.clone());
 			if(!openList.isEmpty())
 			{
 				openList.remove(0);
 				app=openList.get(0).clone();
-				while(contain(app,closedList))
-				{
-					openList.remove(0);
-					app=openList.get(0).clone();
-				}
 			}
-			System.out.println(k++);
-		}		
+			k++;
+		}
+		
+		getPath(structGoal,k);
 		return structGoal;
 	}
 	
+	//-------------------------------------------------------------------------
 	//solve the 8 puzzle with depth search
 	public void profondità()
 	{
@@ -131,7 +111,7 @@ public class otto
 		
 	}
 	
-
+	//-------------------------------------------------------------------------
 	//solve the 8 puzzle with bidirectional search
 	public void bidirezionale()
 	{
@@ -139,6 +119,8 @@ public class otto
 		
 	}
 	
+	
+	//-------------------------------------------------------------------------
 	//solve the 8 puzzle with the Astar algoritm
 	//the used euristic is: count the wrong cells doing a movement
 	public void Astar()
@@ -146,23 +128,50 @@ public class otto
 		
 	}
 	
-	//---------------------------------------------------
-	private void getPath(structNode app) 
+	//-------------------------------------------------------------------------
+	//void that print the final output
+	private void getPath(structNode app, int i) 
 	{
-		int k=0;
-		while(app.parent!=null&&app!=null)
+		int k=1;
+	    fine = System.currentTimeMillis()-inizio;
+		fine=fine/1000;
+		System.out.println("Execution time: " + fine);
+		System.out.println("Number of expanded nodes: " + i);
+		
+		System.out.println("Risultato finale:\n");
+		
+		app.print();
+		while(app.printMov().length()-k!=-1 && app!=null)
 		{
-			app=app.parent;
-			System.out.print(k++);
+			switch (app.printMov().charAt(app.printMov().length()-k))
+			{
+			case 'U':
+				app.zeroDown(false);
+				app.print();
+				break;
+			case 'D':
+				app.zeroUp(false);
+				app.print();
+				break;
+			case 'R':
+				app.zeroLeft(false);
+				app.print();
+				break;
+			case 'L':
+				app.zeroRight(false);
+				app.print();
+				break;
+			case 'S':
+				System.out.println("Start Node:\n");
+				break;
+			}
+			k++;
 		}
-		System.out.println("ciao");
-		for(int i=0;i<scacchiera8[0].length;i++)
-		for(int j=0;j<scacchiera8[1].length;j++)
-			System.out.println(app.m[i][j]);
 	}
+	
+	//function that return true if find a node in a list
 	public boolean contain(structNode n, List<structNode> list)
 	{
-		//devo riuscire a controllare le MATRICI(non elementi, poichè potrebbero avere un diverso padre
 		int i=0;
 		boolean found=false;
 		while(i<list.size() && !found)

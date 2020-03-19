@@ -2,11 +2,17 @@ public class structNode
 {
 	int m[][];
 	int x,y;
-	structNode parent;
+	String mov;
+	
+	//depth used for Astar algorithm
+	int g;
 
 	public structNode()
 	{
-		
+		this.x=0;
+		this.y=0;
+		this.mov="";
+		g=0;
 	}
 	public void assign(int a[][])
 	{
@@ -43,44 +49,51 @@ public class structNode
 	//function that move the empty cell to right
 	//the move control is done in the calling void, to avoid to call that function if not possible
 	//x and y give the position of the empty cell
-	public void zeroRight()
+	public void zeroRight(boolean k)
 	{
 		int app;
 		app=this.m[x][y+1];
 		this.m[x][y+1]=0;
 		this.m[x][y]=app;
 		this.y+=1;
-		
+		if(k)
+			mov+="R";
 	}
 	
 	//function that move the empty cell to left
-	public void zeroLeft()
+	public void zeroLeft(boolean k)
 	{
 		int app;
 		app=this.m[x][y-1];
 		this.m[x][y-1]=0;
 		this.m[x][y]=app;
 		this.y-=1;
+		if(k)
+			mov+="L";
 	}
 	
 	//function that move the empty cell up
-	public void zeroUp()
+	public void zeroUp(boolean k)
 	{
 		int app;
 		app=this.m[x-1][y];
 		this.m[x-1][y]=0;
 		this.m[x][y]=app;
 		this.x-=1;
+		if(k)
+			mov+="U";
 	}
 	
 	//function that move the empty cell down
-	public void zeroDown()
+	public void zeroDown(boolean k)
 	{
 		int app;
 		app=this.m[x+1][y];
 		this.m[x+1][y]=0;
 		this.m[x][y]=app;
 		this.x+=1;
+		if(k)
+			mov+="D";
 	}
 	
 
@@ -102,7 +115,7 @@ public class structNode
 		app.assign(this.m);
 		app.x=this.x;
 		app.y=this.y;
-		app.parent=this.parent;
+		app.mov=this.mov;
 		return app;
 	}
 	
@@ -110,12 +123,28 @@ public class structNode
 	public void print()
 	{
 		System.out.print("[");
-		for(int i=0;i<m[0].length;i++)
-			for(int j=0;j<m[1].length;j++)
-				if((j+1)%3==0)
-					System.out.print("el i["+i+"] e j["+j+"] valore"+m[i][j]+"\n");
+		for(int i=0;i<this.mLenght();i++)
+			for(int j=0;j<this.mLenght();j++)
+				if((j+1)%this.mLenght()==0)
+					System.out.print(m[i][j]+"]\n[");
 				else
-					System.out.print("el i["+i+"] e j["+j+"] valore"+m[i][j]+"     ");
-		System.out.print("x:"+this.x+"   Y:"+this.y+"]");
+					System.out.print(m[i][j]+"     ");
+		System.out.print("x:"+this.x+"   Y:"+this.y+"]\n\n");
+		//System.out.print("["+mov+"]\n");
+	}
+	
+	public String printMov()
+	{
+		return this.mov;
+	}
+	
+	public void assignMov(char a)
+	{
+		this.mov+=a;
+	}
+	
+	public int mLenght()
+	{
+		return m.length;
 	}
 }

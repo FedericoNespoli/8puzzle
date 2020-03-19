@@ -1,14 +1,11 @@
-import java.util.Stack;
-
 public class main {
 
 	public static void main(String[] args) {
-		int i=0;
 		structNode a=new structNode();
 		structNode b=new structNode();
 		otto c=new otto();
 		 a=c.ampiezza();
-		 a.print();
+		 //a.print();
 		/*while(!k.empty())
 		{
 			k.pop();
