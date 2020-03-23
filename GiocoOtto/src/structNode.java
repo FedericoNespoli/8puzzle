@@ -1,18 +1,19 @@
 public class structNode 
 {
-	int m[][];
-	int x,y;
-	String mov;
+	private int m[][];
+	private int x,y;
+	private String mov;
 	
 	//depth used for Astar algorithm
-	int g;
-
+	private int level;
+	private int cost;
 	public structNode()
 	{
 		this.x=0;
 		this.y=0;
 		this.mov="";
-		g=0;
+		this.level=0;
+		this.cost=0;
 	}
 	public void assign(int a[][])
 	{
@@ -123,16 +124,60 @@ public class structNode
 	public void print()
 	{
 		System.out.print("[");
-		for(int i=0;i<this.mLenght();i++)
-			for(int j=0;j<this.mLenght();j++)
-				if((j+1)%this.mLenght()==0)
+		for(int i=0;i<this.mLength();i++)
+			for(int j=0;j<this.mLength();j++)
+				if((j+1)%this.mLength()==0)
 					System.out.print(m[i][j]+"]\n[");
 				else
 					System.out.print(m[i][j]+"     ");
 		System.out.print("x:"+this.x+"   Y:"+this.y+"]\n\n");
-		//System.out.print("["+mov+"]\n");
+	/*	System.out.print("[Mov: "+mov+"]\n");
+		System.out.print("[Costo: "+this.getCost()+"]\n");
+		System.out.print("[Livello: "+this.getLevel()+"]\n");*/
 	}
-	
+	//return the position of the searched element inside the matrix
+	public int[] returnPosition(int element)
+	{
+		boolean trovato=false;
+		int pos[]=new int[2];
+		for(int i=0;i<this.mLength()&&!trovato;i++)
+			for(int j=0;j<this.mLength()&&!trovato;j++)
+				if(element==this.returnElementByCoord(i, j))
+				{
+					trovato=true;
+					pos[0]=i;
+					pos[1]=j;
+				}
+		return pos;
+	}
+	public void setCost(int c)
+	{
+		this.cost=c;
+	}
+	public void setLevel(int l)
+	{
+		this.level=l;
+	}
+	public int getLevel()
+	{
+		return this.level;
+	}
+	public int getCost()
+	{
+		return this.cost;
+	}
+	public int returny()
+	{
+		return y;
+	}
+	public int returnx()
+	{
+		return x;
+	}
+	public int returnElementByCoord(int x, int y)
+	{
+		return this.m[x][y];
+	}
 	public String printMov()
 	{
 		return this.mov;
@@ -143,7 +188,7 @@ public class structNode
 		this.mov+=a;
 	}
 	
-	public int mLenght()
+	public int mLength()
 	{
 		return m.length;
 	}

@@ -4,7 +4,8 @@ public class main {
 		structNode a=new structNode();
 		structNode b=new structNode();
 		otto c=new otto();
-		 a=c.ampiezza();
+		// a=c.ampiezza();
+		c.Astar(1);
 		 //a.print();
 		/*while(!k.empty())
 		{
