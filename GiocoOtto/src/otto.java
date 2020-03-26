@@ -5,7 +5,7 @@ public class otto
 {
 	private double inizio, fine;
 	//scacchiere delle due dimensioni
-	private int scacchiera8 [][]= new int [][] {{0,8,3},
+	private int scacchiera8 [][]= new int [][] {{8,0,3},
 												{4,1,2},
 												{7,6,5}};
 	private int [][] solution;
@@ -36,73 +36,71 @@ public class otto
 	
 	//------------------------------------------------------------------------------------------------------------
 	//solve the 8 puzzle with breadth search
-	public structNode ampiezza()
+	public void ampiezza()
 	{
 		boolean goal=false;
 		structNode structGoal=new structNode();
 		structNode copy;
 		structNode app=node.clone();
 		int k=0;
-		
-		while(!openlist.isEmpty()&&!goal)
-		{
-			if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
+			while(!openlist.isEmpty()&&!goal)
 			{
-				copy=app.clone();
-				copy.zeroDown(true);					
-				openlist.add(copy);
-				if(copy.isGoal(solution))
+				if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
 				{
-					goal=true;
-					structGoal=copy;
+					copy=app.clone();
+					copy.zeroDown(true);					
+					openlist.add(copy);
+					if(copy.isGoal(solution))
+					{
+						goal=true;
+						structGoal=copy;
+					}
 				}
+				
+				if(app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D')
+				{
+					copy=app.clone();
+					copy.zeroUp(true);
+					openlist.add(copy);
+					if(copy.isGoal(solution))
+					{
+						goal=true;
+						structGoal=copy;
+					}
+				}
+				
+				if(app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
+				{
+					copy=app.clone();
+					copy.zeroRight(true);
+					openlist.add(copy);
+					if(copy.isGoal(solution))
+					{
+						goal=true;
+						structGoal=copy;
+					}
+				}
+				
+				if(app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
+				{
+					copy=app.clone();
+					copy.zeroLeft(true);
+					openlist.add(copy);
+					if(copy.isGoal(solution))
+					{
+						goal=true;
+						structGoal=copy;
+					}
+				}
+				if(!openlist.isEmpty())
+				{
+					openlist.remove(0);
+					app=openlist.get(0).clone();
+				}
+				k++;
 			}
 			
-			if(app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D')
-			{
-				copy=app.clone();
-				copy.zeroUp(true);
-				openlist.add(copy);
-				if(copy.isGoal(solution))
-				{
-					goal=true;
-					structGoal=copy;
-				}
-			}
-			
-			if(app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
-			{
-				copy=app.clone();
-				copy.zeroRight(true);
-				openlist.add(copy);
-				if(copy.isGoal(solution))
-				{
-					goal=true;
-					structGoal=copy;
-				}
-			}
-			
-			if(app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
-			{
-				copy=app.clone();
-				copy.zeroLeft(true);
-				openlist.add(copy);
-				if(copy.isGoal(solution))
-				{
-					goal=true;
-					structGoal=copy;
-				}
-			}
-			if(!openlist.isEmpty())
-			{
-				openlist.remove(0);
-				app=openlist.get(0).clone();
-			}
-			k++;
-		}
-		
-		getPath(structGoal,k);
-		return structGoal;
+			getPath(structGoal,k);
 	}
 	
 	//------------------------------------------------------------------------------------------------------------
@@ -142,120 +140,120 @@ public class otto
 		    app.print();
 		}
 		else
-		{
-			while(!goal)
-			//while(k<5)
 			{
-				i=0;
-				//app.print();
-				min=99999;
-				while(i<openlist.size())
+				while(!goal)
+				//while(k<5)
 				{
+					i=0;
+					//app.print();
+					min=99999;
+					while(i<openlist.size())
+					{
+						
+						if(openlist.get(i).getCost()<=min)
+						{
+							app=openlist.get(i).clone();
+							if(!closedlist.contains(app))
+							{
+								min=app.getCost();
+								lvl=app.getLevel();
+								remove=i;
+							}
+						}
+						i++;
+					}
+					//app.print();
+					//System.out.println("\n\n\n\n\n\n");
+					openlist.remove(remove);
+					if(app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D')
+					{
+						copy=app.clone();
+						copy.zeroUp(true);
+						copy.setLevel(lvl+1);
+						if(type==0)
+							copy.setCost(hammingDistance(copy)+copy.getLevel());
+						else
+							copy.setCost(manhattanDistance(copy)+copy.getLevel());
+						//copy.print();
+						if(!contain(copy,openlist) && !contain(copy,closedlist))
+						{
+							openlist.add(copy);
+							if(copy.isGoal(solution))
+							{
+								goal=true;
+								structGoal=copy;
+							}
+						}
+					}
+					if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
+					{
+						copy=app.clone();
+						copy.zeroDown(true);
+						copy.setLevel(lvl+1);
+						if(type==0)
+							copy.setCost(hammingDistance(copy)+copy.getLevel());
+						else
+							copy.setCost(manhattanDistance(copy)+copy.getLevel());
+						//copy.print();
+						if(!contain(copy,openlist) && !contain(copy,closedlist))
+						{
+							openlist.add(copy);
+							if(copy.isGoal(solution))
+							{
+								goal=true;
+								structGoal=copy;
+							}
+						}
+					}
 					
-					if(openlist.get(i).getCost()<=min)
+					if(app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
 					{
-						app=openlist.get(i).clone();
-						if(!closedlist.contains(app))
+						copy=app.clone();
+						copy.zeroRight(true);
+						copy.setLevel(lvl+1);
+						if(type==0)
+							copy.setCost(hammingDistance(copy)+copy.getLevel());
+						else
+							copy.setCost(manhattanDistance(copy)+copy.getLevel());
+						//copy.print();
+						if(!contain(copy,openlist) && !contain(copy,closedlist))
 						{
-							min=app.getCost();
-							lvl=app.getLevel();
-							remove=i;
+							openlist.add(copy);
+							if(copy.isGoal(solution))
+							{
+								goal=true;
+								structGoal=copy;
+							}
 						}
 					}
-					i++;
-				}
-				//app.print();
-				//System.out.println("\n\n\n\n\n\n");
-				openlist.remove(remove);
-				if(app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D')
-				{
-					copy=app.clone();
-					copy.zeroUp(true);
-					copy.setLevel(lvl+1);
-					if(type==0)
-						copy.setCost(hammingDistance(copy)+copy.getLevel());
-					else
-						copy.setCost(manhattanDistance(copy)+copy.getLevel());
-					//copy.print();
-					if(!contain(copy,openlist) && !contain(copy,closedlist))
+					
+					if(app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
 					{
-						openlist.add(copy);
-						if(copy.isGoal(solution))
+						copy=app.clone();
+						copy.zeroLeft(true);
+						copy.setLevel(lvl+1);
+						if(type==0)
+							copy.setCost(hammingDistance(copy)+copy.getLevel());
+						else
+							copy.setCost(manhattanDistance(copy)+copy.getLevel());
+						//copy.print();
+						if(!contain(copy,openlist) && !contain(copy,closedlist))
 						{
-							goal=true;
-							structGoal=copy;
+							openlist.add(copy);
+							if(copy.isGoal(solution))
+							{
+								goal=true;
+								structGoal=copy;
+							}
 						}
 					}
-				}
-				if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
-				{
-					copy=app.clone();
-					copy.zeroDown(true);
-					copy.setLevel(lvl+1);
-					if(type==0)
-						copy.setCost(hammingDistance(copy)+copy.getLevel());
-					else
-						copy.setCost(manhattanDistance(copy)+copy.getLevel());
-					//copy.print();
-					if(!contain(copy,openlist) && !contain(copy,closedlist))
-					{
-						openlist.add(copy);
-						if(copy.isGoal(solution))
-						{
-							goal=true;
-							structGoal=copy;
-						}
-					}
+					closedlist.add(app);
+					//System.out.println(k++);
+					k++;
 				}
 				
-				if(app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
-				{
-					copy=app.clone();
-					copy.zeroRight(true);
-					copy.setLevel(lvl+1);
-					if(type==0)
-						copy.setCost(hammingDistance(copy)+copy.getLevel());
-					else
-						copy.setCost(manhattanDistance(copy)+copy.getLevel());
-					//copy.print();
-					if(!contain(copy,openlist) && !contain(copy,closedlist))
-					{
-						openlist.add(copy);
-						if(copy.isGoal(solution))
-						{
-							goal=true;
-							structGoal=copy;
-						}
-					}
-				}
-				
-				if(app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
-				{
-					copy=app.clone();
-					copy.zeroLeft(true);
-					copy.setLevel(lvl+1);
-					if(type==0)
-						copy.setCost(hammingDistance(copy)+copy.getLevel());
-					else
-						copy.setCost(manhattanDistance(copy)+copy.getLevel());
-					//copy.print();
-					if(!contain(copy,openlist) && !contain(copy,closedlist))
-					{
-						openlist.add(copy);
-						if(copy.isGoal(solution))
-						{
-							goal=true;
-							structGoal=copy;
-						}
-					}
-				}
-				closedlist.add(app);
-				//System.out.println(k++);
-				k++;
+				getPath(structGoal,k);
 			}
-			
-			getPath(structGoal,k);
-		}
 	}
 	
 	//-------------------------------------------------------------------------
@@ -342,6 +340,32 @@ public class otto
 				}
 		return cost;
 	}
+	
+/*	// A utility function to count 
+	// inversions in given array 'arr[]' 
+	static int getInvCount(int[][] arr) 
+	{ 
+	    int inv_count = 0; 
+	    for (int i = 0; i < arr.length - 1; i++) 
+	        for (int j = i + 1; j < arr.length; j++) 
+	          
+	            // Value 0 is used for empty space 
+	            if (arr[j][i] > 0 && 
+	                            arr[j][i] > arr[i][j]) 
+	                inv_count++; 
+	    return inv_count; 
+	} 
+	  
+	// This function returns true 
+	// if given 8 puzzle is solvable. 
+	static boolean isSolvable(int[][] puzzle) 
+	{ 
+	    // Count inversions in given 8 puzzle 
+	    int invCount = getInvCount(puzzle); 
+	  
+	    // return true if inversion count is even. 
+	    return (invCount % 2 == 0); 
+	} */
 
 }
 /*		for(int i=0;i<scacchiera8[0].length;i++)

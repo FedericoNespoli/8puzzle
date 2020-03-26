@@ -150,6 +150,10 @@ public class structNode
 				}
 		return pos;
 	}
+	public int[][] getM()
+	{
+		return this.m;
+	}
 	public void setCost(int c)
 	{
 		this.cost=c;
