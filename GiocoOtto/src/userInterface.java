@@ -210,7 +210,7 @@ public class userInterface {
 		
 		textField12 = new JTextField();
 		setText( textField12);
-	//	textField12.setColumns(10);
+		//textField12.setColumns(10);
 		splitPane_15.setRightComponent(textField12);
 		
 		JSplitPane splitPane_14 = new JSplitPane();
@@ -220,6 +220,7 @@ public class userInterface {
 		
 		textField22 = new JTextField();
 		setText( textField22);
+		textField22.setVisible(false);
 		//textField22.setColumns(10);
 		splitPane_14.setLeftComponent(textField22);
 		
@@ -402,8 +403,6 @@ public class userInterface {
 		    @Override
 		    public void actionPerformed(ActionEvent e) 
 		    {
-		    	//controla il corretto passaggio dei valori
-		    	//controlla valori doppi e valori sopra la matrice
 		    	//passa valori a funzione selezionata
 		        //System.out.println("premo");
 		    	int m[][];
@@ -453,7 +452,33 @@ public class userInterface {
 		    	}
 		    	if(k&&controlMatrix(m))
 	    		{
-	    			
+		    		otto esegui=new otto(m);
+		    		esegui.ampiezza();
+	    			//passa valori a funzioni e scegli cosa fare in base ai focus
+		    		if(rdb1.isSelected())//ampiezza
+		    		{
+		    			esegui.ampiezza();
+		    		}
+		    		else if(rdb2.isSelected())//profondità
+		    		{
+		    			
+		    		}
+		    		else if(rdb3.isSelected())//manhattan
+		    		{
+		    			
+		    		}
+		    		else if(rdb4.isSelected())//Bidirezionale
+		    		{
+		    			
+		    		}
+		    		else if(rdb5.isSelected())//gioca
+		    		{
+		    			
+		    		}
+		    		else if(rdb6.isSelected())//Hamming
+		    		{
+		    			
+		    		}
 	    		}
 	    		else
 	    		{

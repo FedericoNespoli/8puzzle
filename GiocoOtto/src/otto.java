@@ -5,9 +5,9 @@ public class otto
 {
 	private double inizio, fine;
 	//scacchiere delle due dimensioni
-	private int scacchiera8 [][]= new int [][] {{8,0,3},
+	/*private int scacchiera8 [][]= new int [][] {{8,0,3},
 												{4,1,2},
-												{7,6,5}};
+												{7,6,5}};*/
 	private int [][] solution;
 	
 	private structNode node=new structNode();
@@ -19,12 +19,12 @@ public class otto
 	//list of seen states
 	
 	
-	otto()
+	otto(int m[][])
 	{
 		//manage the insertion of 4x4 or 3x3
 		
 		inizio = System.currentTimeMillis();
-		node.assign(scacchiera8);
+		node.assign(m);
 		node.findZero();
 		node.assignMov('S');
 		openlist.add(node);
