@@ -15,10 +15,29 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import net.miginfocom.swing.MigLayout;
 import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JSplitPane;
+import javax.swing.JTextField;
 
 public class userInterface {
 
 	private JFrame frame;
+	private JTextField textField00;
+	private JTextField textField10;
+	private JTextField textField20;
+	private JTextField textField30;
+	private JTextField textField01;
+	private JTextField textField11;
+	private JTextField textField21;
+	private JTextField textField31;
+	private JTextField textField02;
+	private JTextField textField12;
+	private JTextField textField22;
+	private JTextField textField32;
+	private JTextField textField03;
+	private JTextField textField13;
+	private JTextField textField23;
+	private JTextField textField33;
 
 	/**
 	 * Launch the application.
@@ -48,77 +67,185 @@ public class userInterface {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 528, 310);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		frame.getContentPane().setLayout(gridBagLayout);
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		
-		JButton button1 = new JButton("New button");
-		GridBagConstraints gbc_button1 = new GridBagConstraints();
-		gbc_button1.insets = new Insets(0, 0, 5, 5);
-		gbc_button1.gridx = 4;
-		gbc_button1.gridy = 4;
-		frame.getContentPane().add(button1, gbc_button1);
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		frame.getContentPane().add(splitPane);
 		
-		JButton button2 = new JButton("New button");
-		GridBagConstraints gbc_button2 = new GridBagConstraints();
-		gbc_button2.insets = new Insets(0, 0, 5, 5);
-		gbc_button2.gridx = 5;
-		gbc_button2.gridy = 4;
-		frame.getContentPane().add(button2, gbc_button2);
+		JSplitPane splitPane_1 = new JSplitPane();
+		splitPane_1.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane.setRightComponent(splitPane_1);
 		
-		JButton button3 = new JButton("New button");
-		GridBagConstraints gbc_button3 = new GridBagConstraints();
-		gbc_button3.insets = new Insets(0, 0, 5, 5);
-		gbc_button3.gridx = 6;
-		gbc_button3.gridy = 4;
-		frame.getContentPane().add(button3, gbc_button3);
+		JSplitPane splitPane_2 = new JSplitPane();
+		splitPane_1.setLeftComponent(splitPane_2);
 		
-		JButton button4 = new JButton("New button");
-		GridBagConstraints gbc_button4 = new GridBagConstraints();
-		gbc_button4.insets = new Insets(0, 0, 5, 5);
-		gbc_button4.gridx = 4;
-		gbc_button4.gridy = 5;
-		frame.getContentPane().add(button4, gbc_button4);
+		JSplitPane splitPane_3 = new JSplitPane();
+		splitPane_2.setRightComponent(splitPane_3);
 		
-		JButton button5 = new JButton("New button");
-		GridBagConstraints gbc_button5 = new GridBagConstraints();
-		gbc_button5.insets = new Insets(0, 0, 5, 5);
-		gbc_button5.gridx = 5;
-		gbc_button5.gridy = 5;
-		frame.getContentPane().add(button5, gbc_button5);
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(null);
+		splitPane_3.setRightComponent(panel_3);
 		
-		JButton button6 = new JButton("New button");
-		GridBagConstraints gbc_button6 = new GridBagConstraints();
-		gbc_button6.insets = new Insets(0, 0, 5, 5);
-		gbc_button6.gridx = 6;
-		gbc_button6.gridy = 5;
-		frame.getContentPane().add(button6, gbc_button6);
+		JPanel panel_4 = new JPanel();
+		splitPane_3.setLeftComponent(panel_4);
 		
-		JButton button7 = new JButton("New button");
-		GridBagConstraints gbc_button7 = new GridBagConstraints();
-		gbc_button7.insets = new Insets(0, 0, 0, 5);
-		gbc_button7.gridx = 4;
-		gbc_button7.gridy = 6;
-		frame.getContentPane().add(button7, gbc_button7);
+		JSplitPane splitPane_4 = new JSplitPane();
+		panel_4.add(splitPane_4);
 		
-		JButton button8 = new JButton("New button");
-		GridBagConstraints gbc_button8 = new GridBagConstraints();
-		gbc_button8.insets = new Insets(0, 0, 0, 5);
-		gbc_button8.gridx = 5;
-		gbc_button8.gridy = 6;
-		frame.getContentPane().add(button8, gbc_button8);
+		JSplitPane splitPane_5 = new JSplitPane();
+		splitPane_4.setLeftComponent(splitPane_5);
 		
-		JButton button9 = new JButton("New button");
-		GridBagConstraints gbc_button9 = new GridBagConstraints();
-		gbc_button9.insets = new Insets(0, 0, 0, 5);
-		gbc_button9.gridx = 6;
-		gbc_button9.gridy = 6;
-		frame.getContentPane().add(button9, gbc_button9);
+		JSplitPane splitPane_7 = new JSplitPane();
+		splitPane_7.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_5.setLeftComponent(splitPane_7);
+		
+		JSplitPane splitPane_8 = new JSplitPane();
+		splitPane_8.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_7.setLeftComponent(splitPane_8);
+		
+		textField00 = new JTextField();
+		textField00.setColumns(10);
+		splitPane_8.setLeftComponent(textField00);
+		
+		textField10 = new JTextField();
+		textField10.setColumns(10);
+		splitPane_8.setRightComponent(textField10);
+		
+		JSplitPane splitPane_9 = new JSplitPane();
+		splitPane_9.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_7.setRightComponent(splitPane_9);
+		
+		textField20 = new JTextField();
+		textField20.setColumns(10);
+		splitPane_9.setLeftComponent(textField20);
+		
+		textField30 = new JTextField();
+		textField30.setColumns(10);
+		splitPane_9.setRightComponent(textField30);
+		
+		JSplitPane splitPane_10 = new JSplitPane();
+		splitPane_10.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_5.setRightComponent(splitPane_10);
+		
+		JSplitPane splitPane_12 = new JSplitPane();
+		splitPane_12.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_10.setLeftComponent(splitPane_12);
+		
+		textField01 = new JTextField();
+		textField01.setText("");
+		textField01.setColumns(10);
+		splitPane_12.setLeftComponent(textField01);
+		
+		textField11 = new JTextField();
+		textField11.setColumns(10);
+		splitPane_12.setRightComponent(textField11);
+		
+		JSplitPane splitPane_11 = new JSplitPane();
+		splitPane_11.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_10.setRightComponent(splitPane_11);
+		
+		textField21 = new JTextField();
+		textField21.setText("");
+		textField21.setColumns(10);
+		splitPane_11.setLeftComponent(textField21);
+		
+		textField31 = new JTextField();
+		textField31.setColumns(10);
+		splitPane_11.setRightComponent(textField31);
+		
+		JSplitPane splitPane_6 = new JSplitPane();
+		splitPane_4.setRightComponent(splitPane_6);
+		
+		JSplitPane splitPane_13 = new JSplitPane();
+		splitPane_13.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_6.setLeftComponent(splitPane_13);
+		
+		JSplitPane splitPane_15 = new JSplitPane();
+		splitPane_15.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_13.setLeftComponent(splitPane_15);
+		
+		textField02 = new JTextField();
+		textField02.setColumns(10);
+		splitPane_15.setLeftComponent(textField02);
+		
+		textField12 = new JTextField();
+		textField12.setColumns(10);
+		splitPane_15.setRightComponent(textField12);
+		
+		JSplitPane splitPane_14 = new JSplitPane();
+		splitPane_14.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_13.setRightComponent(splitPane_14);
+		
+		textField22 = new JTextField();
+		textField22.setColumns(10);
+		splitPane_14.setLeftComponent(textField22);
+		
+		textField32 = new JTextField();
+		textField32.setColumns(10);
+		splitPane_14.setRightComponent(textField32);
+		
+		JSplitPane splitPane_16 = new JSplitPane();
+		splitPane_16.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_6.setRightComponent(splitPane_16);
+		
+		JSplitPane splitPane_17 = new JSplitPane();
+		splitPane_17.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_16.setLeftComponent(splitPane_17);
+		
+		textField03 = new JTextField();
+		textField03.setColumns(10);
+		splitPane_17.setLeftComponent(textField03);
+		
+		textField13 = new JTextField();
+		textField13.setColumns(10);
+		splitPane_17.setRightComponent(textField13);
+		
+		JSplitPane splitPane_18 = new JSplitPane();
+		splitPane_18.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_16.setRightComponent(splitPane_18);
+		
+		textField23 = new JTextField();
+		textField23.setColumns(10);
+		splitPane_18.setLeftComponent(textField23);
+		
+		textField33 = new JTextField();
+		textField33.setColumns(10);
+		splitPane_18.setRightComponent(textField33);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(null);
+		splitPane_2.setLeftComponent(panel_1);
+		
+		JSplitPane splitPane_19 = new JSplitPane();
+		splitPane_19.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_1.setRightComponent(splitPane_19);
+		
+		JSplitPane splitPane_20 = new JSplitPane();
+		splitPane_19.setRightComponent(splitPane_20);
+		
+		JSplitPane splitPane_21 = new JSplitPane();
+		splitPane_20.setRightComponent(splitPane_21);
+		
+		JPanel panel_5 = new JPanel();
+		splitPane_21.setLeftComponent(panel_5);
+		
+		JPanel panel_7 = new JPanel();
+		splitPane_21.setRightComponent(panel_7);
+		
+		JPanel panel_6 = new JPanel();
+		splitPane_20.setLeftComponent(panel_6);
+		
+		JButton btnNewButton = new JButton("New button");
+		panel_6.add(btnNewButton);
+		
+		JPanel panel = new JPanel();
+		splitPane_19.setLeftComponent(panel);
+		
+		JPanel panel_2 = new JPanel();
+		splitPane.setLeftComponent(panel_2);
 	
 	}
 
