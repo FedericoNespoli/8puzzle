@@ -179,8 +179,8 @@ public class userInterface {
 		splitPane_10.setRightComponent(splitPane_11);
 		
 		textField21 = new JTextField();
-		setText( textField21);
-		textField21.setText("");
+		//setText( textField21);
+		//textField21.setText("");
 		//textField21.setColumns(10);
 		splitPane_11.setLeftComponent(textField21);
 		
@@ -220,7 +220,6 @@ public class userInterface {
 		
 		textField22 = new JTextField();
 		setText( textField22);
-		textField22.setVisible(false);
 		//textField22.setColumns(10);
 		splitPane_14.setLeftComponent(textField22);
 		
@@ -453,7 +452,14 @@ public class userInterface {
 		    	if(k&&controlMatrix(m))
 	    		{
 		    		otto esegui=new otto(m);
-		    		esegui.ampiezza();
+		    		executeInterface show= new executeInterface(m);
+		    		//sostituisco label con bottoni, non premibili e 0 con casella di testo vuota e non modificabile
+		    		
+		    		
+		    		//eseguo le funzioni, richiamo gli algoritmi
+		    		//prendo la soluzione dei vari algoritmi e la mostro a video
+		    		//se premo gioca, tengo solo la grafica e permetto di premere solo i bottoni vicino a alla casella di testo che sarà quella visibile
+		    		
 	    			//passa valori a funzioni e scegli cosa fare in base ai focus
 		    		if(rdb1.isSelected())//ampiezza
 		    		{

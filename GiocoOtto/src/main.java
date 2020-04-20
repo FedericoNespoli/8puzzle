@@ -3,8 +3,8 @@ public class main {
 	public static void main(String[] args) {
 		structNode a=new structNode();
 		structNode b=new structNode();
-		otto c=new otto();
-		 c.ampiezza();
+		//otto c=new otto();
+		// c.ampiezza();
 		//c.Astar(1);
 		 //a.print();
 		/*while(!k.empty())
