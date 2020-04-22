@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import com.jgoodies.forms.layout.FormSpecs;
@@ -26,55 +27,43 @@ import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JSplitPane;
-import javax.swing.JTextField;
+import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class executeInterface {
 
+	boolean type;
 	int m[][];
 	private JFrame frame;
-	private JTextField textField00;
-	private JTextField textField10;
-	private JTextField textField20;
-	private JTextField textField30;
-	private JTextField textField01;
-	private JTextField textField11;
-	private JTextField textField21;
-	private JTextField textField31;
-	private JTextField textField02;
-	private JTextField textField12;
-	private JTextField textField22;
-	private JTextField textField32;
-	private JTextField textField03;
-	private JTextField textField13;
-	private JTextField textField23;
-	private JTextField textField33;
+	private JButton button00;
+	private JButton button10;
+	private JButton button20;
+	private JButton button30;
+	private JButton button01;
+	private JButton button11;
+	private JButton button21;
+	private JButton button31;
+	private JButton button02;
+	private JButton button12;
+	private JButton button22;
+	private JButton button32;
+	private JButton button03;
+	private JButton button13;
+	private JButton button23;
+	private JButton button33;
 
 	/**
 	 * Launch the application.
 	 */
-/*	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					executeInterface window = new executeInterface();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 */
-	public executeInterface(int m[][]) 
+	public executeInterface(int m[][], boolean i) 
 	{
 		this.m=m;
+		type=i;
 		initialize();
 	}
 
@@ -84,7 +73,7 @@ public class executeInterface {
 	private void initialize() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 525, 306);
+		frame.setBounds(100, 100, 728, 446);
 		frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		
@@ -132,30 +121,37 @@ public class executeInterface {
 		splitPane_8.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_7.setLeftComponent(splitPane_8);
 		
-		textField00 = new JTextField();
-		setText( textField00);
-		//textField00.setColumns(10);
-		splitPane_8.setLeftComponent(textField00);
+		button00 = new JButton();
+		setText( button00);
+		button00.setText(String.valueOf(m[0][0]));
+		//button00.setColumns(10);
+		splitPane_8.setLeftComponent(button00);
 		
-		textField10 = new JTextField();
-		//textField10.setColumns(10);
-		setText( textField10);
-		splitPane_8.setRightComponent(textField10);
+		button10 = new JButton();
+		//button10.setColumns(10);
+		setText( button10);
+		button10.setText(String.valueOf(m[1][0]));
+		splitPane_8.setRightComponent(button10);
 		
 		JSplitPane splitPane_9 = new JSplitPane();
 		setSplit(splitPane_9);
 		splitPane_9.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_7.setRightComponent(splitPane_9);
 		
-		textField20 = new JTextField();
-		setText( textField20);
-		//textField20.setColumns(10);
-		splitPane_9.setLeftComponent(textField20);
+		button20 = new JButton();
+		setText( button20);
+		button20.setText(String.valueOf(m[2][0]));
+		//button20.setColumns(10);
+		splitPane_9.setLeftComponent(button20);
+		if(type)
+		{
+			button30 = new JButton();
+			button30.setText(String.valueOf(m[3][0]));
+			setText( button30);
+			splitPane_9.setRightComponent(button30);
+		}
+		//button30.setColumns(10);
 		
-		textField30 = new JTextField();
-		setText( textField30);
-		//textField30.setColumns(10);
-		splitPane_9.setRightComponent(textField30);
 		
 		JSplitPane splitPane_10 = new JSplitPane();
 		setSplit(splitPane_10);
@@ -167,32 +163,38 @@ public class executeInterface {
 		splitPane_12.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_10.setLeftComponent(splitPane_12);
 		
-		textField01 = new JTextField();
-		setText( textField01);
-		textField01.setText("");
-		//textField01.setColumns(10);
-		splitPane_12.setLeftComponent(textField01);
+		button01 = new JButton();
+		button01.setText(String.valueOf(m[0][1]));
+		setText( button01);
+		//button01.setColumns(10);
+		splitPane_12.setLeftComponent(button01);
 		
-		textField11 = new JTextField();
-		setText( textField11);
-		//textField11.setColumns(10);
-		splitPane_12.setRightComponent(textField11);
+		button11 = new JButton();
+		button11.setText(String.valueOf(m[1][1]));
+		setText( button11);
+		//button11.setColumns(10);
+		splitPane_12.setRightComponent(button11);
 		
 		JSplitPane splitPane_11 = new JSplitPane();
 		setSplit(splitPane_11);
 		splitPane_11.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_10.setRightComponent(splitPane_11);
 		
-		textField21 = new JTextField();
-		//setText( textField21);
-		//textField21.setText("");
-		//textField21.setColumns(10);
-		splitPane_11.setLeftComponent(textField21);
+		button21 = new JButton();
+		button21.setText(String.valueOf(m[2][1]));
+		setText( button21);
+		//button21.setText("");
+		//button21.setColumns(10);
+		splitPane_11.setLeftComponent(button21);
 		
-		textField31 = new JTextField();
-		setText( textField31);
-		//textField31.setColumns(10);
-		splitPane_11.setRightComponent(textField31);
+		if(type)
+		{
+			button31 = new JButton();
+			button31.setText(String.valueOf(m[3][1]));
+			setText( button31);
+			//button31.setColumns(10);
+			splitPane_11.setRightComponent(button31);
+		}
 		
 		JSplitPane splitPane_6 = new JSplitPane();
 		setSplit(splitPane_6);
@@ -208,30 +210,37 @@ public class executeInterface {
 		splitPane_15.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_13.setLeftComponent(splitPane_15);
 		
-		textField02 = new JTextField();
-		setText( textField02);
-		//textField02.setColumns(10);
-		splitPane_15.setLeftComponent(textField02);
+		button02 = new JButton();
+		button02.setText(String.valueOf(m[0][2]));
+		setText( button02);
+		//button02.setColumns(10);
+		splitPane_15.setLeftComponent(button02);
 		
-		textField12 = new JTextField();
-		setText( textField12);
-		//textField12.setColumns(10);
-		splitPane_15.setRightComponent(textField12);
+		button12 = new JButton();
+		button12.setText(String.valueOf(m[1][2]));
+		setText( button12);
+		//button12.setColumns(10);
+		splitPane_15.setRightComponent(button12);
 		
 		JSplitPane splitPane_14 = new JSplitPane();
 		setSplit(splitPane_14);
 		splitPane_14.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_13.setRightComponent(splitPane_14);
 		
-		textField22 = new JTextField();
-		setText( textField22);
-		//textField22.setColumns(10);
-		splitPane_14.setLeftComponent(textField22);
+		button22 = new JButton();
+		button22.setText(String.valueOf(m[2][2]));
+		setText( button22);
+		//button22.setColumns(10);
+		splitPane_14.setLeftComponent(button22);
 		
-		textField32 = new JTextField();
-		setText( textField32);
-		//textField32.setColumns(10);
-		splitPane_14.setRightComponent(textField32);
+		if(type)
+		{
+			button32 = new JButton();
+			button32.setText(String.valueOf(m[3][2]));
+			setText( button32);
+			splitPane_14.setRightComponent(button32);
+		}
+
 		
 		JSplitPane splitPane_16 = new JSplitPane();
 		setSplit(splitPane_16);
@@ -243,30 +252,41 @@ public class executeInterface {
 		splitPane_17.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_16.setLeftComponent(splitPane_17);
 		
-		textField03 = new JTextField();
-		setText( textField03);
-		//textField03.setColumns(10);
-		splitPane_17.setLeftComponent(textField03);
-		
-		textField13 = new JTextField();
-		setText( textField13);
-		//textField13.setColumns(10);
-		splitPane_17.setRightComponent(textField13);
+		if(type)
+		{
+			button03 = new JButton();
+			button03.setText(String.valueOf(m[0][3]));
+			setText( button03);
+			splitPane_17.setLeftComponent(button03);
+		}
+		if(type)
+		{
+			button13 = new JButton();
+			button13.setText(String.valueOf(m[1][3]));
+			setText( button13);
+			splitPane_17.setRightComponent(button13);
+		}
 		
 		JSplitPane splitPane_18 = new JSplitPane();
 		setSplit(splitPane_18);
 		splitPane_18.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_16.setRightComponent(splitPane_18);
 		
-		textField23 = new JTextField();
-		setText( textField23);
-		//textField23.setColumns(10);
-		splitPane_18.setLeftComponent(textField23);
-		
-		textField33 = new JTextField();
-		setText( textField33);
-		//textField33.setColumns(10);
-		splitPane_18.setRightComponent(textField33);
+		if(type)
+		{
+			button23 = new JButton();
+			button23.setText(String.valueOf(m[2][3]));
+			setText( button23);
+			splitPane_18.setLeftComponent(button23);
+		}
+
+		if(type)
+		{
+			button33 = new JButton();
+			button33.setText(String.valueOf(m[3][3]));
+			setText( button33);
+			splitPane_18.setRightComponent(button33);
+		}
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(null);
@@ -291,8 +311,15 @@ public class executeInterface {
 		JPanel panel_7 = new JPanel();
 		splitPane_21.setRightComponent(panel_7);
 		
-		JTextPane textPane = new JTextPane();
-		splitPane_21.setLeftComponent(textPane);
+		JSplitPane splitPane_22 = new JSplitPane();
+		splitPane_22.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_21.setLeftComponent(splitPane_22);
+		
+		JPanel panel_5 = new JPanel();
+		splitPane_22.setRightComponent(panel_5);
+		
+		JTextArea textArea = new JTextArea();
+		splitPane_22.setLeftComponent(textArea);
 		
 	    ButtonGroup group = new ButtonGroup();
 		
@@ -313,10 +340,11 @@ public class executeInterface {
 		a.setDividerSize(0);
 		a.setBorder(null);
 	}
-	private void setText(JTextField a)
+	private void setText(JButton a)
 	{
 		//a.setSize(2, 2);
-		a.setColumns(4);
+		a.setBackground(Color.white);
+		a.setPreferredSize(new Dimension(50, 50));
 		//a.setBorder(null);
 	}
 }

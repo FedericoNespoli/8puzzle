@@ -50,7 +50,7 @@ public class userInterface {
 	private JTextField textField13;
 	private JTextField textField23;
 	private JTextField textField33;
-
+    JRadioButton rdbOtto;
 	/**
 	 * Launch the application.
 	 */
@@ -65,6 +65,7 @@ public class userInterface {
 				}
 			}
 		});
+
 	}
 
 	/**
@@ -72,6 +73,7 @@ public class userInterface {
 	 */
 	public userInterface() {
 		initialize();
+		//rdbOtto.setSelected(true);
 	}
 
 	/**
@@ -355,7 +357,7 @@ public class userInterface {
 		splitPane.setLeftComponent(panel_2);
 		
 		//radio button 8 game
-		JRadioButton rdbOtto = new JRadioButton("Gioco dell'8");
+		rdbOtto = new JRadioButton("Gioco dell'8");
 		panel_2.add(rdbOtto);
 		rdbOtto.addActionListener(new ActionListener() 
 		{
@@ -452,7 +454,11 @@ public class userInterface {
 		    	if(k&&controlMatrix(m))
 	    		{
 		    		otto esegui=new otto(m);
-		    		executeInterface show= new executeInterface(m);
+		    		executeInterface show;
+		    		if(rdbOtto.isSelected())
+		    			show= new executeInterface(m,false);
+		    		else
+		    			show= new executeInterface(m,true);
 		    		//sostituisco label con bottoni, non premibili e 0 con casella di testo vuota e non modificabile
 		    		
 		    		
