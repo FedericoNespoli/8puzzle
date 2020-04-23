@@ -36,8 +36,10 @@ import javax.swing.JTextArea;
 
 public class executeInterface {
 
-	boolean type;
-	int m[][];
+	//type is false when 8 game
+	private boolean type;
+	private int soluzione[][];
+	private int m[][];
 	private JFrame frame;
 	private JButton button00;
 	private JButton button10;
@@ -60,10 +62,29 @@ public class executeInterface {
 	 * Launch the application.
 	 */
 
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					int[][] k=new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};//{{8,0,3},{4,1,2},{7,6,5}};
+					executeInterface window = new executeInterface(k,true);
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+	}
+	
 	public executeInterface(int m[][], boolean i) 
 	{
 		this.m=m;
 		type=i;
+		if(type)
+			soluzione= new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};
+		else
+			soluzione= new int[][] {{1,2,3},{4,5,6},{7,8,0}};	
 		initialize();
 	}
 
@@ -127,6 +148,7 @@ public class executeInterface {
 		//button00.setColumns(10);
 		splitPane_8.setLeftComponent(button00);
 		
+		
 		button10 = new JButton();
 		//button10.setColumns(10);
 		setText( button10);
@@ -141,17 +163,21 @@ public class executeInterface {
 		button20 = new JButton();
 		setText( button20);
 		button20.setText(String.valueOf(m[2][0]));
-		//button20.setColumns(10);
 		splitPane_9.setLeftComponent(button20);
-		if(type)
+
+		button30 = new JButton();
+		splitPane_9.setRightComponent(button30);
+		if(!type)
 		{
-			button30 = new JButton();
-			button30.setText(String.valueOf(m[3][0]));
-			setText( button30);
-			splitPane_9.setRightComponent(button30);
+			button30.setBorder(null);
+			button30.setText("");
+			button30.setEnabled(false);
 		}
-		//button30.setColumns(10);
-		
+		else
+		{
+			setText( button30);
+			button30.setText(String.valueOf(m[3][0]));
+		}
 		
 		JSplitPane splitPane_10 = new JSplitPane();
 		setSplit(splitPane_10);
@@ -187,13 +213,19 @@ public class executeInterface {
 		//button21.setColumns(10);
 		splitPane_11.setLeftComponent(button21);
 		
-		if(type)
+		button31 = new JButton();
+		//button31.setColumns(10);
+		splitPane_11.setRightComponent(button31);
+		if(!type)
 		{
-			button31 = new JButton();
-			button31.setText(String.valueOf(m[3][1]));
+			button31.setBorder(null);
+			button31.setText("");
+			button31.setEnabled(false);
+		}
+		else
+		{
 			setText( button31);
-			//button31.setColumns(10);
-			splitPane_11.setRightComponent(button31);
+			button31.setText(String.valueOf(m[3][1]));
 		}
 		
 		JSplitPane splitPane_6 = new JSplitPane();
@@ -232,13 +264,19 @@ public class executeInterface {
 		setText( button22);
 		//button22.setColumns(10);
 		splitPane_14.setLeftComponent(button22);
-		
-		if(type)
+
+		button32 = new JButton();
+		splitPane_14.setRightComponent(button32);
+		if(!type)
 		{
-			button32 = new JButton();
-			button32.setText(String.valueOf(m[3][2]));
+			button32.setBorder(null);
+			button32.setText("");
+			button32.setEnabled(false);
+		}
+		else
+		{
 			setText( button32);
-			splitPane_14.setRightComponent(button32);
+			button32.setText(String.valueOf(m[3][2]));
 		}
 
 		
@@ -252,19 +290,33 @@ public class executeInterface {
 		splitPane_17.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_16.setLeftComponent(splitPane_17);
 		
-		if(type)
+		
+		button03 = new JButton();
+		splitPane_17.setLeftComponent(button03);
+		if(!type)
 		{
-			button03 = new JButton();
-			button03.setText(String.valueOf(m[0][3]));
-			setText( button03);
-			splitPane_17.setLeftComponent(button03);
+			button03.setBorder(null);
+			button03.setText("");
+			button03.setEnabled(false);
 		}
-		if(type)
+		else
 		{
-			button13 = new JButton();
-			button13.setText(String.valueOf(m[1][3]));
+			setText( button03);
+			button03.setText(String.valueOf(m[0][3]));
+		}
+
+		button13 = new JButton();
+		splitPane_17.setRightComponent(button13);
+		if(!type)
+		{
+			button13.setBorder(null);
+			button13.setText("");
+			button13.setEnabled(false);
+		}
+		else
+		{
 			setText( button13);
-			splitPane_17.setRightComponent(button13);
+			button13.setText(String.valueOf(m[1][3]));
 		}
 		
 		JSplitPane splitPane_18 = new JSplitPane();
@@ -272,21 +324,35 @@ public class executeInterface {
 		splitPane_18.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_16.setRightComponent(splitPane_18);
 		
-		if(type)
+
+		button23 = new JButton();
+		splitPane_18.setLeftComponent(button23);
+		if(!type)
 		{
-			button23 = new JButton();
-			button23.setText(String.valueOf(m[2][3]));
+			button23.setBorder(null);
+			button23.setText("");
+			button23.setEnabled(false);
+		}
+		else
+		{
 			setText( button23);
-			splitPane_18.setLeftComponent(button23);
+			button23.setText(String.valueOf(m[2][3]));
 		}
 
-		if(type)
-		{
 			button33 = new JButton();
-			button33.setText(String.valueOf(m[3][3]));
-			setText( button33);
-			splitPane_18.setRightComponent(button33);
+			splitPane_18.setRightComponent(button33);		
+		if(!type)
+		{
+			button33.setBorder(null);
+			button33.setText("");
+			button33.setEnabled(false);
 		}
+		else
+		{
+			setText( button33);
+			button33.setText(String.valueOf(m[3][3]));
+		}
+		
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(null);
@@ -312,6 +378,8 @@ public class executeInterface {
 		splitPane_21.setRightComponent(panel_7);
 		
 		JSplitPane splitPane_22 = new JSplitPane();
+		setSplit(splitPane_22);
+		splitPane_22.setResizeWeight(0.9);
 		splitPane_22.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_21.setLeftComponent(splitPane_22);
 		
@@ -333,6 +401,137 @@ public class executeInterface {
 		splitPane.setLeftComponent(panel_2);
 		ButtonGroup group2 = new ButtonGroup();
 		frame.setVisible(true);
+		
+		
+		button00.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(0,0);
+		    }
+		});
+		button01.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(0,1);
+		    }
+		});
+		button02.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(0,2);
+		    }
+		});
+		button03.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(0,3);
+		    }
+		});
+		button10.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(1,0);
+		    }
+		});
+		button11.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(1,1);
+		    }
+		});
+		button12.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(1,2);
+		    }
+		});
+		button13.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(1,3);
+		    }
+		});
+		button20.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(2,0);
+		    }
+		});
+		button21.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(2,1);
+		    }
+		});
+		button22.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(2,2);
+		    }
+		});
+		button23.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(2,3);
+		    }
+		});
+		button30.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(3,0);
+		    }
+		});
+		button31.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(3,1);
+		    }
+		});
+		button32.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(3,2);
+		    }
+		});
+		button33.addActionListener(new ActionListener() 
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	gioca(3,3);
+		    }
+		});
+		
 	}
 	
 	private void setSplit(JSplitPane a)
@@ -342,9 +541,89 @@ public class executeInterface {
 	}
 	private void setText(JButton a)
 	{
-		//a.setSize(2, 2);
 		a.setBackground(Color.white);
 		a.setPreferredSize(new Dimension(50, 50));
-		//a.setBorder(null);
 	}
+	private void gioca(int x, int y)
+	{
+		int pos_zero[]=findZero();
+		//System.out.println("posizione zero["+pos_zero[0]+pos_zero[1]+"]");
+		//System.out.println("posizione tasto["+x+","+y+"]");
+		if(x!=pos_zero[0] || y!=pos_zero[1])
+		{
+			if(x+1<m.length &&(x+1==pos_zero[0] && y==pos_zero[1]))
+			{
+				m[x+1][y]=m[x][y];
+				m[x][y]=0;
+			}
+			if(x-1>=0 &&(x-1==pos_zero[0] && y==pos_zero[1]))
+			{
+				m[x-1][y]=m[x][y];
+				m[x][y]=0;
+			}
+			if(y+1<m.length &&(x==pos_zero[0] && y+1==pos_zero[1]))
+			{
+				m[x][y+1]=m[x][y];
+				m[x][y]=0;
+			}
+			if(y-1>=0 &&(x==pos_zero[0] && y-1==pos_zero[1]))
+			{
+				m[x][y-1]=m[x][y];
+				m[x][y]=0;
+				
+			}
+			riscrivi();
+			if(isGoal())
+				JOptionPane.showMessageDialog(null, "Complimenti, hai vinto!!!!",null, JOptionPane.INFORMATION_MESSAGE);
+		}
+
+	}
+	private int[] findZero()
+	{
+		boolean k=false;
+		int x[]=new int[2];
+		for(int i=0;i<m[0].length && k==false;i++)
+			for(int j=0;j<m[1].length && k==false;j++)
+				if(m[i][j]==0)
+				{
+					k=true;
+					x[0]=i;
+					x[1]=j;
+				}
+		return x;
+	}
+	
+	private void riscrivi()
+	{
+		button00.setText(String.valueOf(m[0][0]));
+		button01.setText(String.valueOf(m[0][1]));
+		button02.setText(String.valueOf(m[0][2]));
+		button10.setText(String.valueOf(m[1][0]));
+		button11.setText(String.valueOf(m[1][1]));
+		button12.setText(String.valueOf(m[1][2]));
+		button20.setText(String.valueOf(m[2][0]));
+		button21.setText(String.valueOf(m[2][1]));
+		button22.setText(String.valueOf(m[2][2]));
+		if(type)
+		{
+			button03.setText(String.valueOf(m[0][3]));
+			button13.setText(String.valueOf(m[1][3]));
+			button23.setText(String.valueOf(m[2][3]));
+			button30.setText(String.valueOf(m[3][0]));
+			button31.setText(String.valueOf(m[3][1]));
+			button32.setText(String.valueOf(m[3][2]));
+			button33.setText(String.valueOf(m[3][3]));
+		}
+	}
+	
+	private boolean isGoal()
+	{
+		boolean k=true;
+		for(int i=0;i<m.length && k!=false;i++)
+			for(int j=0;j<m.length && k!=false;j++)
+				if(soluzione[i][j]!=m[i][j])
+					k=false;
+		return k;
+	}
+	
 }
