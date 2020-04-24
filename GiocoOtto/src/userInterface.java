@@ -453,43 +453,45 @@ public class userInterface {
 		    	}
 		    	if(k&&controlMatrix(m))
 	    		{
+		    		boolean type=true;
 		    		otto esegui=new otto(m);
+		    		String mov="", print="";
 		    		executeInterface show;
 		    		if(rdbOtto.isSelected())
-		    			show= new executeInterface(m,false);
-		    		else
-		    			show= new executeInterface(m,true);
-		    		//sostituisco label con bottoni, non premibili e 0 con casella di testo vuota e non modificabile
-		    		
-		    		
-		    		//eseguo le funzioni, richiamo gli algoritmi
-		    		//prendo la soluzione dei vari algoritmi e la mostro a video
-		    		//se premo gioca, tengo solo la grafica e permetto di premere solo i bottoni vicino a alla casella di testo che sarà quella visibile
+		    			type=false;
 		    		
 	    			//passa valori a funzioni e scegli cosa fare in base ai focus
 		    		if(rdb1.isSelected())//ampiezza
 		    		{
-		    			esegui.ampiezza();
+		    			esegui.ampiezza(mov,print);
+		    			show= new executeInterface(m,type,1);
+		    			System.out.println("prima di entrare"+ mov +"-" +print);
+		    			show.visualizza(mov,print);
 		    		}
 		    		else if(rdb2.isSelected())//profondità
 		    		{
-		    			
+		    			esegui.profondità();
+		    			show= new executeInterface(m,type,2);
+		    			show.visualizza("aa","a");
 		    		}
 		    		else if(rdb3.isSelected())//manhattan
 		    		{
-		    			
+		    			esegui.Astar(1);
+		    			show= new executeInterface(m,type,3);
 		    		}
 		    		else if(rdb4.isSelected())//Bidirezionale
 		    		{
-		    			
+		    			esegui.bidirezionale();
+		    			show= new executeInterface(m,type,4);
 		    		}
 		    		else if(rdb5.isSelected())//gioca
 		    		{
-		    			
+		    			show= new executeInterface(m,type,5);
 		    		}
 		    		else if(rdb6.isSelected())//Hamming
 		    		{
-		    			
+		    			esegui.Astar(0);
+		    			show= new executeInterface(m,type,6);
 		    		}
 	    		}
 	    		else

@@ -28,6 +28,7 @@ public class otto
 		node.findZero();
 		node.assignMov('S');
 		openlist.add(node);
+		System.out.println("inizializzo");
 		if(node.mLength()==3)
 			solution= new int[][] {{1,2,3},{4,5,6},{7,8,0}};
 		if(node.mLength()==4)
@@ -36,9 +37,10 @@ public class otto
 	
 	//------------------------------------------------------------------------------------------------------------
 	//solve the 8 puzzle with breadth search
-	public void ampiezza()
+	public void ampiezza(String mov, String print)
 	{
-		boolean goal=false;
+		System.out.println("ampiezza");
+		boolean goal=false;;
 		structNode structGoal=new structNode();
 		structNode copy;
 		structNode app=node.clone();
@@ -99,8 +101,9 @@ public class otto
 				}
 				k++;
 			}
-			
-			getPath(structGoal,k);
+			print = getPath(structGoal,k);
+			mov=app.printMov();
+			System.out.println("fine ampiezza"+ mov +"-" +print);
 	}
 	
 	//------------------------------------------------------------------------------------------------------------
@@ -123,7 +126,7 @@ public class otto
 	//--------------------------------------------------------------------------------------------------------------
 	//solve the 8 puzzle with the Astar algoritm
 	//the used euristic is: count the wrong cells doing a movement
-	//if type is 0 Astar use hammingDistance and if type is 0, Astar use Manhattan distance
+	//if type is 0 Astar use hammingDistance and if type is 1, Astar use Manhattan distance
 	public void Astar(int type)
 	{
 		boolean goal=false;
@@ -259,16 +262,16 @@ public class otto
 	//-------------------------------------------------------------------------
 	//
 	//void that print the final output
-	private void getPath(structNode app, int i) 
+	private String getPath(structNode app, int i) 
 	{
 		int k=1;
+		String path="";
 	    fine = System.currentTimeMillis()-inizio;
 		fine=fine/1000;
-		System.out.println("Execution time: " + fine);
-		System.out.println("Number of expanded nodes: " + i);
-		
-		System.out.println("Risultato finale:\n");
-		
+
+		path=path + "Execution time: " + fine + "\n";
+		path=path + "Number of expanded nodes: " + i +"\n";
+		path=path + "Risultato finale:\n";
 		app.print();
 		while(app.printMov().length()-k!=-1 && app!=null)
 		{
@@ -276,26 +279,27 @@ public class otto
 			{
 			case 'U':
 				app.zeroDown(false);
-				app.print();
+				path=path + app.print();
 				break;
 			case 'D':
 				app.zeroUp(false);
-				app.print();
+				path=path + app.print();
 				break;
 			case 'R':
 				app.zeroLeft(false);
-				app.print();
+				path=path + app.print();
 				break;
 			case 'L':
 				app.zeroRight(false);
-				app.print();
+				path=path + app.print();
 				break;
 			case 'S':
-				System.out.println("Start Node:\n");
+				path=path +"Start Node:\n";
 				break;
 			}
 			k++;
 		}
+		return path;
 	}
 	
 	//function that return true if find a node in a list

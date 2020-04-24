@@ -121,16 +121,17 @@ public class structNode
 	}
 	
 	//print matrix and zero coord of structNode
-	public void print()
+	public String print()
 	{
-		System.out.print("[");
+		String s="[";
 		for(int i=0;i<this.mLength();i++)
 			for(int j=0;j<this.mLength();j++)
 				if((j+1)%this.mLength()==0)
-					System.out.print(m[i][j]+"]\n[");
+					s = s + m[i][j]+"]\n[";
 				else
-					System.out.print(m[i][j]+"     ");
-		System.out.print("x:"+this.x+"   Y:"+this.y+"]\n\n");
+					s = s + m[i][j]+"     ";
+		s=s+"x:"+this.x+"   Y:"+this.y+"]\n\n";
+		return s;
 	/*	System.out.print("[Mov: "+mov+"]\n");
 		System.out.print("[Costo: "+this.getCost()+"]\n");
 		System.out.print("[Livello: "+this.getLevel()+"]\n");*/

@@ -40,6 +40,7 @@ public class executeInterface {
 	private boolean type;
 	private int soluzione[][];
 	private int m[][];
+	private int method;
 	private JFrame frame;
 	private JButton button00;
 	private JButton button10;
@@ -57,17 +58,17 @@ public class executeInterface {
 	private JButton button13;
 	private JButton button23;
 	private JButton button33;
-
+	private JTextArea textArea;
 	/**
 	 * Launch the application.
 	 */
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					int[][] k=new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};//{{8,0,3},{4,1,2},{7,6,5}};
-					executeInterface window = new executeInterface(k,true);
+					executeInterface window = new executeInterface(k,true,1);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -75,12 +76,13 @@ public class executeInterface {
 			}
 		});
 
-	}
+	}*/
 	
-	public executeInterface(int m[][], boolean i) 
+	public executeInterface(int m[][], boolean i, int method) 
 	{
 		this.m=m;
 		type=i;
+		this.method=method;
 		if(type)
 			soluzione= new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};
 		else
@@ -145,12 +147,10 @@ public class executeInterface {
 		button00 = new JButton();
 		setText( button00);
 		button00.setText(String.valueOf(m[0][0]));
-		//button00.setColumns(10);
 		splitPane_8.setLeftComponent(button00);
 		
 		
 		button10 = new JButton();
-		//button10.setColumns(10);
 		setText( button10);
 		button10.setText(String.valueOf(m[1][0]));
 		splitPane_8.setRightComponent(button10);
@@ -192,13 +192,11 @@ public class executeInterface {
 		button01 = new JButton();
 		button01.setText(String.valueOf(m[0][1]));
 		setText( button01);
-		//button01.setColumns(10);
 		splitPane_12.setLeftComponent(button01);
 		
 		button11 = new JButton();
 		button11.setText(String.valueOf(m[1][1]));
 		setText( button11);
-		//button11.setColumns(10);
 		splitPane_12.setRightComponent(button11);
 		
 		JSplitPane splitPane_11 = new JSplitPane();
@@ -209,12 +207,9 @@ public class executeInterface {
 		button21 = new JButton();
 		button21.setText(String.valueOf(m[2][1]));
 		setText( button21);
-		//button21.setText("");
-		//button21.setColumns(10);
 		splitPane_11.setLeftComponent(button21);
 		
 		button31 = new JButton();
-		//button31.setColumns(10);
 		splitPane_11.setRightComponent(button31);
 		if(!type)
 		{
@@ -245,13 +240,11 @@ public class executeInterface {
 		button02 = new JButton();
 		button02.setText(String.valueOf(m[0][2]));
 		setText( button02);
-		//button02.setColumns(10);
 		splitPane_15.setLeftComponent(button02);
 		
 		button12 = new JButton();
 		button12.setText(String.valueOf(m[1][2]));
 		setText( button12);
-		//button12.setColumns(10);
 		splitPane_15.setRightComponent(button12);
 		
 		JSplitPane splitPane_14 = new JSplitPane();
@@ -262,7 +255,6 @@ public class executeInterface {
 		button22 = new JButton();
 		button22.setText(String.valueOf(m[2][2]));
 		setText( button22);
-		//button22.setColumns(10);
 		splitPane_14.setLeftComponent(button22);
 
 		button32 = new JButton();
@@ -386,7 +378,7 @@ public class executeInterface {
 		JPanel panel_5 = new JPanel();
 		splitPane_22.setRightComponent(panel_5);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		splitPane_22.setLeftComponent(textArea);
 		
 	    ButtonGroup group = new ButtonGroup();
@@ -401,7 +393,7 @@ public class executeInterface {
 		splitPane.setLeftComponent(panel_2);
 		ButtonGroup group2 = new ButtonGroup();
 		frame.setVisible(true);
-		
+
 		
 		button00.addActionListener(new ActionListener() 
 		{
@@ -531,7 +523,20 @@ public class executeInterface {
 		    	gioca(3,3);
 		    }
 		});
-		
+	}
+	public void visualizza(String mov, String stamp)
+	{
+		textArea.setText(stamp);
+		cmdSend(mov);
+	}
+	private void cmdSend(String s)
+	{
+		char cmd;
+		for(int i=0; i<s.length();i++)
+		{
+			cmd=s.charAt(i);
+			traduci(cmd);
+		}
 	}
 	
 	private void setSplit(JSplitPane a)
@@ -539,45 +544,61 @@ public class executeInterface {
 		a.setDividerSize(0);
 		a.setBorder(null);
 	}
+	
 	private void setText(JButton a)
 	{
 		a.setBackground(Color.white);
 		a.setPreferredSize(new Dimension(50, 50));
 	}
+	
 	private void gioca(int x, int y)
 	{
 		int pos_zero[]=findZero();
+		boolean k=isGoal();
 		//System.out.println("posizione zero["+pos_zero[0]+pos_zero[1]+"]");
 		//System.out.println("posizione tasto["+x+","+y+"]");
-		if(x!=pos_zero[0] || y!=pos_zero[1])
+		if(method==5 && (x!=pos_zero[0] || y!=pos_zero[1]))
 		{
 			if(x+1<m.length &&(x+1==pos_zero[0] && y==pos_zero[1]))
-			{
-				m[x+1][y]=m[x][y];
-				m[x][y]=0;
-			}
-			if(x-1>=0 &&(x-1==pos_zero[0] && y==pos_zero[1]))
-			{
-				m[x-1][y]=m[x][y];
-				m[x][y]=0;
-			}
-			if(y+1<m.length &&(x==pos_zero[0] && y+1==pos_zero[1]))
-			{
-				m[x][y+1]=m[x][y];
-				m[x][y]=0;
-			}
-			if(y-1>=0 &&(x==pos_zero[0] && y-1==pos_zero[1]))
-			{
-				m[x][y-1]=m[x][y];
-				m[x][y]=0;
-				
-			}
+				traduci('u');
+			else if(x-1>=0 &&(x-1==pos_zero[0] && y==pos_zero[1]))
+				traduci('d');
+			else if(y+1<m.length &&(x==pos_zero[0] && y+1==pos_zero[1]))
+				traduci('l');
+			else if(y-1>=0 &&(x==pos_zero[0] && y-1==pos_zero[1]))
+				traduci('r');
 			riscrivi();
-			if(isGoal())
+			if(!k && isGoal())
 				JOptionPane.showMessageDialog(null, "Complimenti, hai vinto!!!!",null, JOptionPane.INFORMATION_MESSAGE);
 		}
-
 	}
+	
+	private void traduci(char comando)
+	{
+		int pos_zero[]=findZero(),x,y;
+		x=pos_zero[0];
+		y=pos_zero[1];
+		switch(comando)
+		{
+		case 'r':
+			m[x][y]=m[x][y+1];
+			m[x][y+1]=0;
+			break;
+		case 'l':
+			m[x][y]=m[x][y-1];
+			m[x][y-1]=0;
+			break;
+		case 'u':
+			m[x][y]=m[x-1][y];
+			m[x-1][y]=0;
+			break;
+		case 'd':
+			m[x][y]=m[x+1][y];
+			m[x+1][y]=0;
+		break;
+		}
+	}
+	
 	private int[] findZero()
 	{
 		boolean k=false;
