@@ -21,6 +21,7 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import net.miginfocom.swing.MigLayout;
 import java.awt.FlowLayout;
@@ -30,7 +31,9 @@ import javax.swing.JSplitPane;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 
@@ -378,8 +381,12 @@ public class executeInterface {
 		JPanel panel_5 = new JPanel();
 		splitPane_22.setRightComponent(panel_5);
 		
+
+
 		textArea = new JTextArea();
-		splitPane_22.setLeftComponent(textArea);
+		JScrollPane scroll = new JScrollPane (textArea, 
+				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		splitPane_22.setLeftComponent(scroll);
 		
 	    ButtonGroup group = new ButtonGroup();
 		
@@ -526,17 +533,30 @@ public class executeInterface {
 	}
 	public void visualizza(String mov, String stamp)
 	{
+		System.out.println("prima di entrare"+ mov +"-" +stamp);
 		textArea.setText(stamp);
 		cmdSend(mov);
 	}
 	private void cmdSend(String s)
 	{
-		char cmd;
-		for(int i=0; i<s.length();i++)
+
+		long startTime = System.currentTimeMillis();
+		long elapsedTime = 0L;
+		int i=0;
+
+
+		for(i=0; i<s.length();i++)
 		{
+			char cmd;
 			cmd=s.charAt(i);
 			traduci(cmd);
+			while (elapsedTime < 2000 && i<s.length()) 
+			{
+			    //perform db poll/check
+			    elapsedTime = (new Date()).getTime() - startTime;
+			}
 		}
+			//pausa di tot millisecondi da uno spostamento all'altro
 	}
 	
 	private void setSplit(JSplitPane a)
@@ -560,14 +580,13 @@ public class executeInterface {
 		if(method==5 && (x!=pos_zero[0] || y!=pos_zero[1]))
 		{
 			if(x+1<m.length &&(x+1==pos_zero[0] && y==pos_zero[1]))
-				traduci('u');
+				traduci('U');
 			else if(x-1>=0 &&(x-1==pos_zero[0] && y==pos_zero[1]))
-				traduci('d');
+				traduci('D');
 			else if(y+1<m.length &&(x==pos_zero[0] && y+1==pos_zero[1]))
-				traduci('l');
+				traduci('L');
 			else if(y-1>=0 &&(x==pos_zero[0] && y-1==pos_zero[1]))
-				traduci('r');
-			riscrivi();
+				traduci('R');
 			if(!k && isGoal())
 				JOptionPane.showMessageDialog(null, "Complimenti, hai vinto!!!!",null, JOptionPane.INFORMATION_MESSAGE);
 		}
@@ -580,23 +599,25 @@ public class executeInterface {
 		y=pos_zero[1];
 		switch(comando)
 		{
-		case 'r':
+		case 'R':
 			m[x][y]=m[x][y+1];
 			m[x][y+1]=0;
-			break;
-		case 'l':
+		break;
+		case 'L':
 			m[x][y]=m[x][y-1];
 			m[x][y-1]=0;
-			break;
-		case 'u':
+		break;
+		case 'U':
 			m[x][y]=m[x-1][y];
 			m[x-1][y]=0;
-			break;
-		case 'd':
+		break;
+		case 'D':
 			m[x][y]=m[x+1][y];
 			m[x+1][y]=0;
 		break;
+		default:;
 		}
+		riscrivi();
 	}
 	
 	private int[] findZero()

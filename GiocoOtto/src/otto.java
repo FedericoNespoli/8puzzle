@@ -37,16 +37,18 @@ public class otto
 	
 	//------------------------------------------------------------------------------------------------------------
 	//solve the 8 puzzle with breadth search
-	public void ampiezza(String mov, String print)
+	public String[] ampiezza()
 	{
 		System.out.println("ampiezza");
-		boolean goal=false;;
+		boolean goal=false;
+		String r[]= {"",""};
 		structNode structGoal=new structNode();
 		structNode copy;
 		structNode app=node.clone();
 		int k=0;
 			while(!openlist.isEmpty()&&!goal)
 			{
+				//DOWN
 				if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
 				{
 					copy=app.clone();
@@ -58,7 +60,7 @@ public class otto
 						structGoal=copy;
 					}
 				}
-				
+				//UP
 				if(app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D')
 				{
 					copy=app.clone();
@@ -70,7 +72,7 @@ public class otto
 						structGoal=copy;
 					}
 				}
-				
+				//RIGHT
 				if(app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
 				{
 					copy=app.clone();
@@ -82,7 +84,7 @@ public class otto
 						structGoal=copy;
 					}
 				}
-				
+				//LEFT
 				if(app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
 				{
 					copy=app.clone();
@@ -101,9 +103,11 @@ public class otto
 				}
 				k++;
 			}
-			print = getPath(structGoal,k);
-			mov=app.printMov();
-			System.out.println("fine ampiezza"+ mov +"-" +print);
+			r[0]=structGoal.printMov();
+			r[1] = getPath(structGoal,k) + node.print();
+			System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
+			return r;
+
 	}
 	
 	//------------------------------------------------------------------------------------------------------------
@@ -271,9 +275,9 @@ public class otto
 
 		path=path + "Execution time: " + fine + "\n";
 		path=path + "Number of expanded nodes: " + i +"\n";
-		path=path + "Risultato finale:\n";
-		app.print();
-		while(app.printMov().length()-k!=-1 && app!=null)
+		path=path + "Risultato finale:\n\n";
+		path=path + app.print();
+		while(app.printMov().length()-k>=0 && app!=null)
 		{
 			switch (app.printMov().charAt(app.printMov().length()-k))
 			{

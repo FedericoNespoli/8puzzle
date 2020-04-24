@@ -455,7 +455,7 @@ public class userInterface {
 	    		{
 		    		boolean type=true;
 		    		otto esegui=new otto(m);
-		    		String mov="", print="";
+		    		String r[]= {"",""};
 		    		executeInterface show;
 		    		if(rdbOtto.isSelected())
 		    			type=false;
@@ -463,16 +463,16 @@ public class userInterface {
 	    			//passa valori a funzioni e scegli cosa fare in base ai focus
 		    		if(rdb1.isSelected())//ampiezza
 		    		{
-		    			esegui.ampiezza(mov,print);
+		    			r=esegui.ampiezza();
 		    			show= new executeInterface(m,type,1);
-		    			System.out.println("prima di entrare"+ mov +"-" +print);
-		    			show.visualizza(mov,print);
+		    			System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+		    			show.visualizza(r[0],r[1]);
 		    		}
 		    		else if(rdb2.isSelected())//profondità
 		    		{
 		    			esegui.profondità();
 		    			show= new executeInterface(m,type,2);
-		    			show.visualizza("aa","a");
+		    			show.visualizza(r[0],r[1]);
 		    		}
 		    		else if(rdb3.isSelected())//manhattan
 		    		{
