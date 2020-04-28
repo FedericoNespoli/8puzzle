@@ -228,14 +228,15 @@ public class otto
 	//solve the 8 puzzle with the Astar algoritm
 	//the used euristic is: count the wrong cells doing a movement
 	//if type is 0 Astar use hammingDistance and if type is 1, Astar use Manhattan distance
-	public void Astar(int type)
+	public String[] Astar(int type)
 	{
+		String r[]= {"",""};
 		boolean goal=false;
 		int min=100,i,lvl=0,remove=0;
 		structNode structGoal=new structNode();
 		structNode copy;
 		structNode app=node.clone();
-		int size=openlist.size();
+		//int size=openlist.size();
 		//openlist.add(app);
 		int k=0;
 		if(app.isGoal(solution))
@@ -358,6 +359,10 @@ public class otto
 				
 				getPath(structGoal,k);
 			}
+		r[0]=structGoal.printMov();
+		r[1] = getPath(structGoal,k) + node.print();
+		System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
+		return r;
 	}
 	
 	//-------------------------------------------------------------------------

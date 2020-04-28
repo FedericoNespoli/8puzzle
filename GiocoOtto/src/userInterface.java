@@ -477,8 +477,10 @@ public class userInterface {
 		    		}
 		    		else if(rdb3.isSelected())//manhattan
 		    		{
-		    			esegui.Astar(1);
+		    			r=esegui.Astar(1);
 		    			show= new executeInterface(m,type,3);
+		    			System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+		    			show.visualizza(r[0],r[1]);
 		    		}
 		    		else if(rdb4.isSelected())//Bidirezionale
 		    		{
@@ -493,6 +495,8 @@ public class userInterface {
 		    		{
 		    			esegui.Astar(0);
 		    			show= new executeInterface(m,type,6);
+		    			System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+		    			show.visualizza(r[0],r[1]);
 		    		}
 	    		}
 	    		else
