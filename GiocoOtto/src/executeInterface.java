@@ -148,13 +148,13 @@ public class executeInterface {
 		splitPane_7.setLeftComponent(splitPane_8);
 		
 		button00 = new JButton();
-		setText( button00);
+		setButton( button00);
 		button00.setText(String.valueOf(m[0][0]));
 		splitPane_8.setLeftComponent(button00);
 		
 		
 		button10 = new JButton();
-		setText( button10);
+		setButton( button10);
 		button10.setText(String.valueOf(m[1][0]));
 		splitPane_8.setRightComponent(button10);
 		
@@ -164,7 +164,7 @@ public class executeInterface {
 		splitPane_7.setRightComponent(splitPane_9);
 		
 		button20 = new JButton();
-		setText( button20);
+		setButton( button20);
 		button20.setText(String.valueOf(m[2][0]));
 		splitPane_9.setLeftComponent(button20);
 
@@ -178,7 +178,7 @@ public class executeInterface {
 		}
 		else
 		{
-			setText( button30);
+			setButton( button30);
 			button30.setText(String.valueOf(m[3][0]));
 		}
 		
@@ -194,12 +194,12 @@ public class executeInterface {
 		
 		button01 = new JButton();
 		button01.setText(String.valueOf(m[0][1]));
-		setText( button01);
+		setButton( button01);
 		splitPane_12.setLeftComponent(button01);
 		
 		button11 = new JButton();
 		button11.setText(String.valueOf(m[1][1]));
-		setText( button11);
+		setButton( button11);
 		splitPane_12.setRightComponent(button11);
 		
 		JSplitPane splitPane_11 = new JSplitPane();
@@ -209,7 +209,7 @@ public class executeInterface {
 		
 		button21 = new JButton();
 		button21.setText(String.valueOf(m[2][1]));
-		setText( button21);
+		setButton( button21);
 		splitPane_11.setLeftComponent(button21);
 		
 		button31 = new JButton();
@@ -222,7 +222,7 @@ public class executeInterface {
 		}
 		else
 		{
-			setText( button31);
+			setButton( button31);
 			button31.setText(String.valueOf(m[3][1]));
 		}
 		
@@ -242,12 +242,12 @@ public class executeInterface {
 		
 		button02 = new JButton();
 		button02.setText(String.valueOf(m[0][2]));
-		setText( button02);
+		setButton( button02);
 		splitPane_15.setLeftComponent(button02);
 		
 		button12 = new JButton();
 		button12.setText(String.valueOf(m[1][2]));
-		setText( button12);
+		setButton( button12);
 		splitPane_15.setRightComponent(button12);
 		
 		JSplitPane splitPane_14 = new JSplitPane();
@@ -257,7 +257,7 @@ public class executeInterface {
 		
 		button22 = new JButton();
 		button22.setText(String.valueOf(m[2][2]));
-		setText( button22);
+		setButton( button22);
 		splitPane_14.setLeftComponent(button22);
 
 		button32 = new JButton();
@@ -270,7 +270,7 @@ public class executeInterface {
 		}
 		else
 		{
-			setText( button32);
+			setButton( button32);
 			button32.setText(String.valueOf(m[3][2]));
 		}
 
@@ -296,7 +296,7 @@ public class executeInterface {
 		}
 		else
 		{
-			setText( button03);
+			setButton( button03);
 			button03.setText(String.valueOf(m[0][3]));
 		}
 
@@ -310,7 +310,7 @@ public class executeInterface {
 		}
 		else
 		{
-			setText( button13);
+			setButton( button13);
 			button13.setText(String.valueOf(m[1][3]));
 		}
 		
@@ -330,7 +330,7 @@ public class executeInterface {
 		}
 		else
 		{
-			setText( button23);
+			setButton( button23);
 			button23.setText(String.valueOf(m[2][3]));
 		}
 
@@ -344,7 +344,7 @@ public class executeInterface {
 		}
 		else
 		{
-			setText( button33);
+			setButton( button33);
 			button33.setText(String.valueOf(m[3][3]));
 		}
 		
@@ -531,12 +531,16 @@ public class executeInterface {
 		    }
 		});
 	}
+	
+	//send text and moves to visualize the solution of algorithms
 	public void visualizza(String mov, String stamp)
 	{
 		System.out.println("prima di entrare"+ mov +"-" +stamp);
 		textArea.setText(stamp);
 		cmdSend(mov);
 	}
+	
+	//send all the commands contained in the command string once every loop, to visualize them
 	private void cmdSend(String s)
 	{
 
@@ -559,18 +563,20 @@ public class executeInterface {
 			//pausa di tot millisecondi da uno spostamento all'altro
 	}
 	
+	//set split properties
 	private void setSplit(JSplitPane a)
 	{
 		a.setDividerSize(0);
 		a.setBorder(null);
 	}
-	
-	private void setText(JButton a)
+	//set the color and the dimension of game's button
+	private void setButton(JButton a)
 	{
 		a.setBackground(Color.white);
 		a.setPreferredSize(new Dimension(50, 50));
 	}
 	
+	//make the user play the game
 	private void gioca(int x, int y)
 	{
 		int pos_zero[]=findZero();
@@ -592,6 +598,7 @@ public class executeInterface {
 		}
 	}
 	
+	//translate command into a move on the matrix
 	private void traduci(char comando)
 	{
 		int pos_zero[]=findZero(),x,y;
@@ -620,6 +627,7 @@ public class executeInterface {
 		riscrivi();
 	}
 	
+	//find the zero element into the matrix
 	private int[] findZero()
 	{
 		boolean k=false;
@@ -635,6 +643,7 @@ public class executeInterface {
 		return x;
 	}
 	
+	//update the UI with the content of the matrix m
 	private void riscrivi()
 	{
 		button00.setText(String.valueOf(m[0][0]));
@@ -658,6 +667,7 @@ public class executeInterface {
 		}
 	}
 	
+	//tell if the goal is reached or not when play
 	private boolean isGoal()
 	{
 		boolean k=true;

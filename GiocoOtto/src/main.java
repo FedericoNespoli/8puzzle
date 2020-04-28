@@ -3,7 +3,9 @@ public class main {
 	public static void main(String[] args) {
 		structNode a=new structNode();
 		structNode b=new structNode();
-		//otto c=new otto();
+		int[][] m= new int[][] {{0,1,2},{4,5,3},{7,8,6}};
+		otto c=new otto(m);
+		System.out.println(c.profondità().toString());
 		// c.ampiezza();
 		//c.Astar(1);
 		 //a.print();

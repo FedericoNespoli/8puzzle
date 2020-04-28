@@ -470,8 +470,9 @@ public class userInterface {
 		    		}
 		    		else if(rdb2.isSelected())//profondità
 		    		{
-		    			esegui.profondità();
+		    			r=esegui.profondità();
 		    			show= new executeInterface(m,type,2);
+		    			System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
 		    			show.visualizza(r[0],r[1]);
 		    		}
 		    		else if(rdb3.isSelected())//manhattan

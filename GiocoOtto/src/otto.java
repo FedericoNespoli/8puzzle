@@ -53,7 +53,7 @@ public class otto
 				{
 					copy=app.clone();
 					copy.zeroDown(true);					
-					openlist.add(copy);
+					openlist.add(copy);//add the element at the end of the list
 					if(copy.isGoal(solution))
 					{
 						goal=true;
@@ -112,9 +112,106 @@ public class otto
 	
 	//------------------------------------------------------------------------------------------------------------
 	//solve the 8 puzzle with depth search
-	public void profondità()
+	public String[] profondità()
 	{
-
+		System.out.println("profondità");
+		boolean goal=false,op=false;
+		String r[]= {"",""};
+		structNode structGoal=new structNode();
+		structNode copy;
+		structNode app=node.clone();
+		int k=0;
+			while(!openlist.isEmpty()&&!goal)
+			{
+				op=false;
+				//DOWN
+				if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
+				{
+					copy=app.clone();
+					copy.zeroDown(true);
+					if(!contain(copy,closedlist) && !contain(copy,openlist))
+					{
+						op=true;
+						openlist.add(copy);
+						if(copy.isGoal(solution))
+						{
+							goal=true;
+							structGoal=copy;
+						}
+					}
+				}//UP
+				 if(app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D' )
+					{
+						copy=app.clone();
+						copy.zeroUp(true);
+						if(!contain(copy,closedlist) && !contain(copy,openlist))
+						{
+							if(!op)
+							{
+								openlist.add(copy);
+								op=true;
+							}
+							if(copy.isGoal(solution))
+							{
+								goal=true;
+								structGoal=copy;
+							}
+						}
+					}//RIGHT
+				 if(app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
+				{
+					copy=app.clone();
+					copy.zeroRight(true);
+					if(!contain(copy,closedlist) && !contain(copy,openlist))
+					{
+						if(!op)
+						{
+							openlist.add(copy);
+							op=true;
+						}
+						if(copy.isGoal(solution))
+						{
+							goal=true;
+							structGoal=copy;
+						}
+					}
+				}//LEFT
+				 if(!op && app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
+				{
+					copy=app.clone();
+					copy.zeroLeft(true);
+					if(!contain(copy,closedlist) && !contain(copy,openlist))
+					{
+						if(!op)
+						{
+							op=true;
+							openlist.add(copy);
+						}
+						if(copy.isGoal(solution))
+						{
+							goal=true;
+							structGoal=copy;
+						}
+					}
+				}
+				if(!openlist.isEmpty())
+				{
+					//openlist.remove(0);
+					if(!op)
+					{
+						closedlist.add(app);
+						app=openlist.remove(openlist.size()-1);//non rimuove
+					}
+					else
+						app=openlist.get(openlist.size()-1).clone();
+				}
+				k++;
+				System.out.println(app.print());
+			}
+			r[0]=structGoal.printMov();
+			r[1] = getPath(structGoal,k) + node.print();
+			System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
+			return r;
 		
 	}
 	
