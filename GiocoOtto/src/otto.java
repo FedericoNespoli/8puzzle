@@ -111,7 +111,6 @@ public class otto
 			r[1] = getPath(structGoal,k) + node.print();
 			System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
 			return r;
-
 	}
 	
 	//------------------------------------------------------------------------------------------------------------
@@ -383,7 +382,7 @@ public class otto
 			}
 			r[0]=structGoal.printMov();
 			System.out.println("r0"+ r[0]);
-			r[1] = getPath1(structGoal,k) + node.print();
+			r[1] = getPath(structGoal,k) + node.print();
 			System.out.println("fine bidirezionale"+ r[0] +"-" +r[1]);
 			return r;
 		
@@ -561,46 +560,6 @@ public class otto
 	//
 	//void that print the final output
 	private String getPath(structNode app, int i) 
-	{
-		int k=1;
-		String path="";
-	    fine = System.currentTimeMillis()-inizio;
-		fine=fine/1000;
-
-		path=path + "Execution time: " + fine + "\n";
-		path=path + "Number of expanded nodes: " + i +"\n";
-		path=path + "Risultato finale:\n\n";
-		path=path + app.print();
-		while(app.printMov().length()-k>=0 && app!=null)
-		{
-			switch (app.printMov().charAt(app.printMov().length()-k))
-			{
-			case 'U':
-				app.zeroDown(false);
-				path=path + app.print();
-				break;
-			case 'D':
-				app.zeroUp(false);
-				path=path + app.print();
-				break;
-			case 'R':
-				app.zeroLeft(false);
-				path=path + app.print();
-				break;
-			case 'L':
-				app.zeroRight(false);
-				path=path + app.print();
-				break;
-			case 'S':
-				path=path +"Start Node:\n";
-				break;
-			}
-			k++;
-		}
-		return path;
-	}
-	
-	private String getPath1(structNode app, int i) 
 	{
 		int k=0;
 		String path="";
