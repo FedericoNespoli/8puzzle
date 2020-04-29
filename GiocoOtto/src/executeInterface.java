@@ -102,6 +102,27 @@ public class executeInterface {
 		frame.setBounds(100, 100, 728, 446);
 		frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
+		switch(method)
+		{
+		case 1:
+			frame.setTitle("Ricerca in ampiezza");
+			break;
+		case 2:
+			frame.setTitle("Ricerca in profondità");
+			break;
+		case 3:
+			frame.setTitle("AStar con distanza di Manhattan");
+			break;
+		case 4:
+			frame.setTitle("Ricerca bidirezionale");
+			break;
+		case 5:
+			frame.setTitle("Gioca");
+			break;
+		case 6:
+			frame.setTitle("AStar con distanza di Hamming");
+			break;
+		}
 		
 		JSplitPane splitPane = new JSplitPane();
 		setSplit(splitPane);

@@ -130,7 +130,8 @@ public class structNode
 					s = s + m[i][j]+"]\n[";
 				else
 					s = s + m[i][j]+"     ";
-		s=s+"x:"+this.x+"   Y:"+this.y+"]\n\n";
+		s=s+"\n\n";
+		//s=s+"x:"+this.x+"   Y:"+this.y+"]\n\n";
 		return s;
 	/*	System.out.print("[Mov: "+mov+"]\n");
 		System.out.print("[Costo: "+this.getCost()+"]\n");

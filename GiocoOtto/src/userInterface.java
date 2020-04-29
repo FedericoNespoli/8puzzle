@@ -82,6 +82,9 @@ public class userInterface {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 525, 306);
+		Dimension min=new Dimension();
+		min.setSize(525, 306);
+		frame.setMinimumSize(min);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		
@@ -466,28 +469,28 @@ public class userInterface {
 		    		{
 		    			r=esegui.ampiezza();
 		    			show= new executeInterface(m,type,1);
-		    			System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+		    			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
 		    			show.visualizza(r[0],r[1]);
 		    		}
 		    		else if(rdb2.isSelected())//profondità
 		    		{
 		    			r=esegui.profondità();
 		    			show= new executeInterface(m,type,2);
-		    			System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+		    			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
 		    			show.visualizza(r[0],r[1]);
 		    		}
 		    		else if(rdb3.isSelected())//manhattan
 		    		{
 		    			r=esegui.Astar(1);
 		    			show= new executeInterface(m,type,3);
-		    			System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+		    			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
 		    			show.visualizza(r[0],r[1]);
 		    		}
 		    		else if(rdb4.isSelected())//Bidirezionale
 		    		{
 		    			r=esegui.bidirezionale();
 		    			show= new executeInterface(m,type,4);
-		    			System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+		    			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
 		    			show.visualizza(r[0],r[1]);
 		    		}
 		    		else if(rdb5.isSelected())//gioca
@@ -498,7 +501,7 @@ public class userInterface {
 		    		{
 		    			r=esegui.Astar(0);
 		    			show= new executeInterface(m,type,6);
-		    			System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+		    			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
 		    			show.visualizza(r[0],r[1]);
 		    		}
 	    		}

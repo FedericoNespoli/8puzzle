@@ -43,7 +43,7 @@ public class otto
 	//solve the 8 puzzle with breadth search
 	public String[] ampiezza()
 	{
-		System.out.println("ampiezza");
+		//System.out.println("ampiezza");
 		boolean goal=false;
 		String r[]= {"",""};
 		structNode structGoal=new structNode();
@@ -109,7 +109,7 @@ public class otto
 			}
 			r[0]=structGoal.printMov();
 			r[1] = getPath(structGoal,k) + node.print();
-			System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
+			//System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
 			return r;
 	}
 	
@@ -117,7 +117,7 @@ public class otto
 	//solve the 8 puzzle with depth search
 	public String[] profondità()
 	{
-		System.out.println("profondità");
+		//System.out.println("profondità");
 		boolean goal=false,op=false;
 		String r[]= {"",""};
 		structNode structGoal=new structNode();
@@ -203,17 +203,17 @@ public class otto
 					if(!op)
 					{
 						closedlist.add(app);
-						app=openlist.remove(openlist.size()-1);//non rimuove
+						app=openlist.remove(openlist.size()-1);
 					}
 					else
 						app=openlist.get(openlist.size()-1).clone();
 				}
 				k++;
-				System.out.println(app.print());
+				//System.out.println(app.print());
 			}
 			r[0]=structGoal.printMov();
 			r[1] = getPath(structGoal,k) + node.print();
-			System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
+			//System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
 			return r;
 		
 	}
@@ -222,7 +222,7 @@ public class otto
 	//solve the 8 puzzle with bidirectional search
 	public String[] bidirezionale()
 	{
-		System.out.println("Bidirezionale");
+		//System.out.println("Bidirezionale");
 		boolean goal=false;
 		String r[]= {"",""};
 		String appoggio;
@@ -381,9 +381,9 @@ public class otto
 				k++;
 			}
 			r[0]=structGoal.printMov();
-			System.out.println("r0"+ r[0]);
+			//System.out.println("r0"+ r[0]);
 			r[1] = getPath(structGoal,k) + node.print();
-			System.out.println("fine bidirezionale"+ r[0] +"-" +r[1]);
+			//System.out.println("fine bidirezionale"+ r[0] +"-" +r[1]);
 			return r;
 		
 	}
@@ -432,7 +432,7 @@ public class otto
 		int k=0;
 		if(app.isGoal(solution))
 		{
-			System.out.println("Soluzione trovata in 0 passi: \n");
+			//System.out.println("Soluzione trovata in 0 passi: \n");
 		    app.print();
 		}
 		else
@@ -552,7 +552,7 @@ public class otto
 			}
 		r[0]=structGoal.printMov();
 		r[1] = getPath(structGoal,k) + node.print();
-		System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
+		//System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
 		return r;
 	}
 	
@@ -568,8 +568,6 @@ public class otto
 
 		path=path + "Execution time: " + fine + "\n";
 		path=path + "Number of expanded nodes: " + i +"\n";
-		path=path + "Partenza:\n\n";
-		path=path + node.print();
 		while(k<app.printMov().length() && app!=null)
 		{
 			switch (app.printMov().charAt(k))
@@ -591,7 +589,7 @@ public class otto
 				path=path + node.print();
 				break;
 			case 'S':
-				path=path +"Soluzione:\n";
+				path=path +"Soluzione:\nNodo di partenza:\n";
 				path=path + node.print();
 				break;
 			}
