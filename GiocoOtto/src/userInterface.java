@@ -406,6 +406,7 @@ public class userInterface {
 		    {
 		    	//passa valori a funzione selezionata
 		        //System.out.println("premo");
+		    	//Alert per dire che ci potrebbe mettere un po
 		    	int m[][];
 		    	boolean k=true;
 		    	if(rdbQuindici.isSelected())
@@ -484,8 +485,10 @@ public class userInterface {
 		    		}
 		    		else if(rdb4.isSelected())//Bidirezionale
 		    		{
-		    			esegui.bidirezionale();
+		    			r=esegui.bidirezionale();
 		    			show= new executeInterface(m,type,4);
+		    			System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+		    			show.visualizza(r[0],r[1]);
 		    		}
 		    		else if(rdb5.isSelected())//gioca
 		    		{
@@ -493,7 +496,7 @@ public class userInterface {
 		    		}
 		    		else if(rdb6.isSelected())//Hamming
 		    		{
-		    			esegui.Astar(0);
+		    			r=esegui.Astar(0);
 		    			show= new executeInterface(m,type,6);
 		    			System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
 		    			show.visualizza(r[0],r[1]);

@@ -193,6 +193,11 @@ public class structNode
 		this.mov+=a;
 	}
 	
+	public void assignMov(String a)
+	{
+		this.mov+=a;
+	}
+	
 	public int mLength()
 	{
 		return m.length;

@@ -11,9 +11,13 @@ public class otto
 	private int [][] solution;
 	
 	private structNode node=new structNode();
-	//analyzed items
+	//frontier
 	private List<structNode> openlist = new ArrayList<structNode>();
 
+	//openlist bidirezionale
+	private List<structNode> openlist1 = new ArrayList<structNode>();
+	
+	//analized items
 	private List<structNode> closedlist = new ArrayList<structNode>();
 	
 	//list of seen states
@@ -217,13 +221,201 @@ public class otto
 	
 	//-------------------------------------------------------------------------------------------------------------
 	//solve the 8 puzzle with bidirectional search
-	public void bidirezionale()
+	public String[] bidirezionale()
 	{
+		System.out.println("Bidirezionale");
+		boolean goal=false;
+		String r[]= {"",""};
+		String appoggio;
+		structNode structGoal=new structNode();
+		structNode copy;
+		structNode app=node.clone();
 		
+		structNode app1= new structNode();
+		app1.assign(solution);
+		app1.findZero();
+		app1.assignMov('S');
+		openlist1.add(app1);
+		int k=0;
+		//devo partire dalla situazione iniziale e dalla soluzione
+		//controlli devo cambiarli. non controllare più se trovano la soluzione ma se si congiungono con la frontiera 2
+			while(!openlist.isEmpty()&&!goal)
+			{
+				//1 - DOWN-------------------------------------------------------------------------------
+				if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
+				{
+					copy=app.clone();
+					copy.zeroDown(true);					
+					openlist.add(copy);//add the element at the end of the list
+					if(contain(copy,openlist1))
+					{
+						
+						goal=true;
+						int j=retIndex(copy,openlist1);
+						structGoal=copy;
+						appoggio=openlist1.get(j).printMov();
+						appoggio=inverti(appoggio);
+						structGoal.assignMov(appoggio);
+						
+					}
+				}
+				//1 - UP
+				if(!goal && app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D')
+				{
+					copy=app.clone();
+					copy.zeroUp(true);
+					openlist.add(copy);
+					if(contain(copy,openlist1))
+					{
+						goal=true;
+						int j=retIndex(copy,openlist1);
+						structGoal=copy;
+						appoggio=openlist1.get(j).printMov();
+						appoggio=inverti(appoggio);
+						structGoal.assignMov(appoggio);
+					}
+				}
+				//1 - RIGHT
+				if(!goal && app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
+				{
+					copy=app.clone();
+					copy.zeroRight(true);
+					openlist.add(copy);
+					if(contain(copy,openlist1))
+					{
+						goal=true;
+						int j=retIndex(copy,openlist1);
+						structGoal=copy;
+						appoggio=openlist1.get(j).printMov();
+						appoggio=inverti(appoggio);
+						structGoal.assignMov(appoggio);
+					}
+				}
+				//1 - LEFT
+				if(!goal && app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
+				{
+					copy=app.clone();
+					copy.zeroLeft(true);
+					openlist.add(copy);
+					if(contain(copy,openlist1))
+					{
+						goal=true;
+						int j=retIndex(copy,openlist1);
+						structGoal=copy;
+						appoggio=openlist1.get(j).printMov();
+						appoggio=inverti(appoggio);
+						structGoal.assignMov(appoggio);
+					}
+				}
+				//2 - DOWN-------------------------------------------------------------------------------
+				if(!goal && app1.returnx()!=app1.mLength()-1 && app1.printMov().charAt(app1.printMov().length()-1)!='U')
+				{
+					copy=app1.clone();
+					copy.zeroDown(true);					
+					openlist1.add(copy);//add the element at the end of the list
+					if(contain(copy,openlist))
+					{
+						goal=true;
+						int j=retIndex(copy,openlist1);
+						structGoal=openlist1.get(j);
+						appoggio=copy.printMov();
+						appoggio=inverti(appoggio);
+						structGoal.assignMov(appoggio);
+					}
+				}
+				//2 - UP
+				if(!goal && app1.returnx()!=0 && app1.printMov().charAt(app1.printMov().length()-1)!='D')
+				{
+					copy=app1.clone();
+					copy.zeroUp(true);
+					openlist1.add(copy);
+					if(contain(copy,openlist))
+					{
+						goal=true;
+						int j=retIndex(copy,openlist1);
+						structGoal=openlist1.get(j);
+						appoggio=copy.printMov();
+						appoggio=inverti(appoggio);
+						structGoal.assignMov(appoggio);
+					}
+				}
+				//2 - RIGHT
+				if(!goal && app1.returny()!=app1.mLength()-1 && app1.printMov().charAt(app1.printMov().length()-1)!='L')
+				{
+					copy=app1.clone();
+					copy.zeroRight(true);
+					openlist1.add(copy);
+					if(contain(copy,openlist))
+					{
+						goal=true;
+						int j=retIndex(copy,openlist1);
+						structGoal=openlist1.get(j);
+						appoggio=copy.printMov();
+						appoggio=inverti(appoggio);
+						structGoal.assignMov(appoggio);
+					}
+				}
+				//2 - LEFT
+				if(!goal && app1.returny()!=0 && app1.printMov().charAt(app1.printMov().length()-1)!='R')
+				{
+					copy=app1.clone();
+					copy.zeroLeft(true);
+					openlist1.add(copy);
+					if(contain(copy,openlist))
+					{
+						goal=true;
+						int j=retIndex(copy,openlist1);
+						structGoal=openlist1.get(j);
+						appoggio=copy.printMov();
+						appoggio=inverti(appoggio);
+						structGoal.assignMov(appoggio);
+					}
+					System.out.println("mosse"+structGoal.printMov());
+				}
+				if(!goal && !openlist.isEmpty())
+				{
+					openlist.remove(0);
+					app=openlist.get(0).clone();
+					openlist1.remove(0);
+					app1=openlist1.get(0).clone();
+				}
+				k++;
+			}
+			r[0]=structGoal.printMov();
+			System.out.println("r0"+ r[0]);
+			r[1] = getPath1(structGoal,k) + node.print();
+			System.out.println("fine bidirezionale"+ r[0] +"-" +r[1]);
+			return r;
 		
 	}
 	
 	
+	private String inverti(String appoggio) 
+	{
+		int k=1;
+		String path="";
+		while(appoggio.length()-k>0 && appoggio!=null)
+		{
+			switch (appoggio.charAt(appoggio.length()-k))
+			{
+			case 'U':
+				path=path + 'D';
+				break;
+			case 'D':
+				path=path + 'R';
+				break;
+			case 'R':
+				path=path + 'L';
+				break;
+			case 'L':
+				path=path + 'R';
+				break;
+			}
+			k++;
+		}
+		return path;
+	}
+
 	//--------------------------------------------------------------------------------------------------------------
 	//solve the 8 puzzle with the Astar algoritm
 	//the used euristic is: count the wrong cells doing a movement
@@ -357,7 +549,7 @@ public class otto
 					k++;
 				}
 				
-				getPath(structGoal,k);
+				
 			}
 		r[0]=structGoal.printMov();
 		r[1] = getPath(structGoal,k) + node.print();
@@ -408,6 +600,47 @@ public class otto
 		return path;
 	}
 	
+	private String getPath1(structNode app, int i) 
+	{
+		int k=0;
+		String path="";
+	    fine = System.currentTimeMillis()-inizio;
+		fine=fine/1000;
+
+		path=path + "Execution time: " + fine + "\n";
+		path=path + "Number of expanded nodes: " + i +"\n";
+		path=path + "Partenza:\n\n";
+		path=path + node.print();
+		while(k<app.printMov().length() && app!=null)
+		{
+			switch (app.printMov().charAt(k))
+			{
+			case 'U':
+				node.zeroUp(false);
+				path=path + node.print();
+				break;
+			case 'D':
+				node.zeroDown(false);
+				path=path + node.print();
+				break;
+			case 'R':
+				node.zeroRight(false);
+				path=path + node.print();
+				break;
+			case 'L':
+				node.zeroLeft(false);
+				path=path + node.print();
+				break;
+			case 'S':
+				path=path +"Soluzione:\n";
+				path=path + node.print();
+				break;
+			}
+			k++;
+		}
+		return path;
+	}
+	
 	//function that return true if find a node in a list
 	public boolean contain(structNode n, List<structNode> list)
 	{
@@ -423,6 +656,21 @@ public class otto
 		}
 
 		return found;
+	}
+	public int retIndex(structNode n, List<structNode> list)
+	{
+		int i=0;
+		boolean found=false;
+		while(i<list.size() && !found)
+		{
+			if(list.get(i).isSame(n))
+			{
+				found=true;
+			}
+			i++;
+		}
+		i--;
+		return i;
 	}
 	
 	//calculate Hamming distance from node to solution
