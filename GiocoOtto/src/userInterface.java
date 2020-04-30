@@ -327,7 +327,7 @@ public class userInterface {
 	    group.add(rdb4);
 	    group.add(rdb5);
 	    group.add(rdb6);
-	    
+	    rdb1.setSelected(true);
 
 	    
 		JSplitPane splitPane_23 = new JSplitPane();
@@ -499,12 +499,16 @@ public class userInterface {
 		    	if(k&&controlMatrix(m))
 	    		{
 		    		boolean type=true;
+		    		int[][] s= {};
 		    		otto esegui=new otto(m);
 		    		String r[]= {"",""};
 		    		executeInterface show;
 		    		if(rdbOtto.isSelected())
 		    			type=false;
-		    		
+		    		if(m.length==3)
+		    			 s= new int[][] {{1,2,3},{4,5,6},{7,8,0}};
+		    		else if(m.length==4)
+		    			 s= new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};
 	    			//passa valori a funzioni e scegli cosa fare in base ai focus
 		    		if(rdb1.isSelected())//ampiezza
 		    		{
@@ -536,7 +540,15 @@ public class userInterface {
 		    		}
 		    		else if(rdb5.isSelected())//gioca
 		    		{
-		    			show= new executeInterface(m,type,5);
+		    			boolean equal=true;
+		    			for(int i=0;i<m[0].length && equal!=false;i++)
+		    				for(int j=0;j<m[1].length && equal!=false;j++)
+		    					if(s[i][j]!=m[i][j])
+		    						equal=false;
+		    			if(equal)
+		    				JOptionPane.showMessageDialog(null, "I valori da te inseriti corrispondono alla soluzione del puzzle",null, JOptionPane.INFORMATION_MESSAGE);
+		    			else
+		    				show= new executeInterface(m,type,5);
 		    		}
 		    		else if(rdb6.isSelected())//Hamming
 		    		{

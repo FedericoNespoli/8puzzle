@@ -63,6 +63,7 @@ public class executeInterface {
 	private JButton button23;
 	private JButton button33;
 	private JTextArea textArea;
+	JScrollPane scroll;
 	/**
 	 * Launch the application.
 	 */
@@ -100,7 +101,7 @@ public class executeInterface {
 	private void initialize() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 728, 446);
+		frame.setBounds(100, 100, 798, 536);
 		frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		switch(method)
@@ -406,7 +407,7 @@ public class executeInterface {
 
 
 		textArea = new JTextArea();
-		JScrollPane scroll = new JScrollPane (textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		 scroll = new JScrollPane (textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		splitPane_22.setLeftComponent(scroll);
 		if(method!=5)
 		{
@@ -609,6 +610,7 @@ public class executeInterface {
 		//System.out.println("prima di entrare"+ mov +"-" +stamp);
 		textArea.setText(stamp);
 		cmdSend(mov);
+		textArea.setCaretPosition(0);
 	}
 	
 	//send all the commands contained in the command string once every loop, to visualize them

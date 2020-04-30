@@ -51,7 +51,14 @@ public class otto
 		structNode copy;
 		structNode app=node.clone();
 		int k=0;
-			while(!openlist.isEmpty()&&!goal)
+		if(app.isGoal(solution))
+		{
+			r[0]="S";
+			r[1] = "La disposizione iniziale è già la soluzione del puzzle!";
+		}
+		else
+		{
+			while(!openlist.isEmpty() && !goal && ((System.currentTimeMillis()-inizio)/1000<20))
 			{
 				//DOWN
 				if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
@@ -111,10 +118,21 @@ public class otto
 					app=openlist.get(0).clone();
 				}
 			}
-			r[0]=structGoal.printMov();
-			r[1] = getPath(structGoal,k) + node.print();
-			//System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
-			return r;
+			if((System.currentTimeMillis()-inizio)/1000<20)
+			{
+				r[0]=structGoal.printMov();
+				r[1] = getPath(structGoal,k) + node.print();
+			}
+			else
+			{
+				r[0]="S";
+				r[1] = "L'algoritmo sta richiedendo troppo tempo o troppa memoria per arrivare a una soluzione.\n"
+						+ "Questo può accadere perchè:\n"
+						+ " - La soluzione al problema fornito non esiste\n"
+						+ " - L'algoritmo selezionato non è adatto a risolvere un problema di questa complessità";
+			}
+		}
+		return r;
 	}
 	
 	//------------------------------------------------------------------------------------------------------------
@@ -129,29 +147,54 @@ public class otto
 		structNode app=node.clone();
 		int k=0;
 
-		while(!openlist.isEmpty()&&!goal && (inizio-System.currentTimeMillis()<20))
-			{
-				op=false;
-				//DOWN
-				if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
+		if(app.isGoal(solution))
+		{
+			r[0]="S";
+			r[1] = "La disposizione iniziale è già la soluzione del puzzle!";
+		}
+		else
+		{
+			while(!openlist.isEmpty()&&!goal && ((System.currentTimeMillis()-inizio)/1000<20))
 				{
-					copy=app.clone();
-					copy.zeroDown(true);
-					if(!contain(copy,closedlist) && !contain(copy,openlist))
-					{
-						op=true;
-						openlist.add(copy);
-						if(copy.isGoal(solution))
-						{
-							goal=true;
-							structGoal=copy;
-						}
-					}
-				}//UP
-				 if(app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D' )
+					op=false;
+					//DOWN
+					if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
 					{
 						copy=app.clone();
-						copy.zeroUp(true);
+						copy.zeroDown(true);
+						if(!contain(copy,closedlist) && !contain(copy,openlist))
+						{
+							op=true;
+							openlist.add(copy);
+							if(copy.isGoal(solution))
+							{
+								goal=true;
+								structGoal=copy;
+							}
+						}
+					}//UP
+					 if(app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D' )
+						{
+							copy=app.clone();
+							copy.zeroUp(true);
+							if(!contain(copy,closedlist) && !contain(copy,openlist))
+							{
+								if(!op)
+								{
+									openlist.add(copy);
+									op=true;
+								}
+								if(copy.isGoal(solution))
+								{
+									goal=true;
+									structGoal=copy;
+								}
+							}
+						}//RIGHT
+					 if(app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
+					{
+						copy=app.clone();
+						copy.zeroRight(true);
 						if(!contain(copy,closedlist) && !contain(copy,openlist))
 						{
 							if(!op)
@@ -165,61 +208,56 @@ public class otto
 								structGoal=copy;
 							}
 						}
-					}//RIGHT
-				 if(app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
-				{
-					copy=app.clone();
-					copy.zeroRight(true);
-					if(!contain(copy,closedlist) && !contain(copy,openlist))
+					}//LEFT
+					 if(!op && app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
 					{
+						copy=app.clone();
+						copy.zeroLeft(true);
+						if(!contain(copy,closedlist) && !contain(copy,openlist))
+						{
+							if(!op)
+							{
+								op=true;
+								openlist.add(copy);
+							}
+							if(copy.isGoal(solution))
+							{
+								goal=true;
+								structGoal=copy;
+							}
+						}
+					}
+					if(!openlist.isEmpty())
+					{
+						//openlist.remove(0);
 						if(!op)
 						{
-							openlist.add(copy);
-							op=true;
+							closedlist.add(app);
+							app=openlist.remove(openlist.size()-1);
 						}
-						if(copy.isGoal(solution))
-						{
-							goal=true;
-							structGoal=copy;
-						}
+						else
+							app=openlist.get(openlist.size()-1).clone();
 					}
-				}//LEFT
-				 if(!op && app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
-				{
-					copy=app.clone();
-					copy.zeroLeft(true);
-					if(!contain(copy,closedlist) && !contain(copy,openlist))
-					{
-						if(!op)
-						{
-							op=true;
-							openlist.add(copy);
-						}
-						if(copy.isGoal(solution))
-						{
-							goal=true;
-							structGoal=copy;
-						}
-					}
+					k++;
+					//System.out.println(app.print());
 				}
-				if(!openlist.isEmpty())
-				{
-					//openlist.remove(0);
-					if(!op)
-					{
-						closedlist.add(app);
-						app=openlist.remove(openlist.size()-1);
-					}
-					else
-						app=openlist.get(openlist.size()-1).clone();
-				}
-				k++;
-				//System.out.println(app.print());
+			
+			
+			//System.out.println(System.currentTimeMillis()-inizio);
+			if((System.currentTimeMillis()-inizio)/1000<20)
+			{
+				r[0]=structGoal.printMov();
+				r[1] = getPath(structGoal,k);
 			}
-		
-			//System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
-		r[0]=structGoal.printMov();
-		r[1] = getPath(structGoal,k) + node.print();
+			else
+			{
+				r[0]="S";
+				r[1] = "L'algoritmo sta richiedendo troppo tempo o troppa memoria per arrivare a una soluzione.\n"
+						+ "Questo può accadere perchè:\n"
+						+ " - La soluzione al problema fornito non esiste\n"
+						+ " - L'algoritmo selezionato non è adatto a risolvere un problema di questa complessità";
+			}
+		}
 		return r;
 		
 	}
@@ -230,6 +268,7 @@ public class otto
 	{
 		//System.out.println("Bidirezionale");
 		boolean goal=false;
+		int giro=0;
 		String r[]= {"",""};
 		String appoggio;
 		structNode structGoal=new structNode();
@@ -242,10 +281,14 @@ public class otto
 		app1.assignMov('S');
 		openlist1.add(app1);
 		int k=0;
-		
-		//devo partire dalla situazione iniziale e dalla soluzione
-		//controlli devo cambiarli. non controllare più se trovano la soluzione ma se si congiungono con la frontiera 2
-			while(!openlist.isEmpty()&&!goal)
+		if(app.isGoal(solution))
+		{
+			r[0]="S";
+			r[1] = "La disposizione iniziale è già la soluzione del puzzle!";
+		}
+		else
+		{
+			while(!openlist.isEmpty() && !goal)// && ((System.currentTimeMillis()-inizio)/1000<20))
 			{
 				//1 - DOWN-------------------------------------------------------------------------------
 				if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
@@ -381,52 +424,39 @@ public class otto
 						int j=retIndex(copy,openlist1);
 						structGoal=openlist1.get(j);
 						appoggio=copy.printMov();
+						//System.out.println("8"+structGoal.printMov()+"\n");
+						//System.out.println(appoggio+"\n");
 						appoggio=inverti(appoggio);
+						//System.out.println("inverto "+appoggio+"\n");
 						structGoal.assignMov(appoggio);
 					}
 					//System.out.println("mosse"+structGoal.printMov());
 				}
 				if(!goal && !openlist.isEmpty())
 				{
-					openlist.remove(0);
-					app=openlist.get(0).clone();
-					openlist1.remove(0);
-					app1=openlist1.get(0).clone();
+					giro++;
+					//openlist.remove(0);
+					app=openlist.get(giro).clone();
+					//openlist1.remove(0);
+					app1=openlist1.get(giro).clone();
 				}
 			}
-			r[0]=structGoal.printMov();
-			//System.out.println("r0"+ r[0]);
-			r[1] = getPath(structGoal,k) + node.print();
-			//System.out.println("fine bidirezionale"+ r[0] +"-" +r[1]);
-			return r;
-		
-	}
-	
-	
-	private String inverti(String appoggio) 
-	{
-		int k=1;
-		String path="";
-		while(appoggio.length()-k>0 && appoggio!=null)
-		{
-			switch (appoggio.charAt(appoggio.length()-k))
+			if((System.currentTimeMillis()-inizio)/1000<20)
 			{
-			case 'U':
-				path=path + 'D';
-				break;
-			case 'D':
-				path=path + 'R';
-				break;
-			case 'R':
-				path=path + 'L';
-				break;
-			case 'L':
-				path=path + 'R';
-				break;
+				System.out.println(structGoal.printMov());
+				r[0]=structGoal.printMov();
+				r[1] = getPath(structGoal,k);
 			}
-			k++;
+			else
+			{
+				r[0]="S";
+				r[1] = "L'algoritmo sta richiedendo troppo tempo o troppa memoria per arrivare a una soluzione.\n"
+						+ "Questo può accadere perchè:\n"
+						+ " - La soluzione al problema fornito non esiste\n"
+						+ " - L'algoritmo selezionato non è adatto a risolvere un problema di questa complessità";
+			}
 		}
-		return path;
+		return r;
 	}
 
 	//--------------------------------------------------------------------------------------------------------------
@@ -446,12 +476,12 @@ public class otto
 		int k=0;
 		if(app.isGoal(solution))
 		{
-			//System.out.println("Soluzione trovata in 0 passi: \n");
-		    app.print();
+			r[0]="S";
+			r[1] = "La disposizione iniziale è già la soluzione del puzzle!";
 		}
 		else
 			{
-				while(!goal)
+				while(!goal)// && ((System.currentTimeMillis()-inizio)/1000<20))
 				//while(k<5)
 				{
 					i=0;
@@ -564,16 +594,55 @@ public class otto
 					closedlist.add(app);
 					//System.out.println(k++);
 				}
-				
+				if((System.currentTimeMillis()-inizio)/1000<20)
+				{
+					r[0]=structGoal.printMov();
+					r[1] = getPath(structGoal,k);
+				}
+				else
+				{
+					r[0]="S";
+					r[1] = "L'algoritmo sta richiedendo troppo tempo o troppa memoria per arrivare a una soluzione.\n"
+							+ "Questo può accadere perchè:\n"
+							+ " - La soluzione al problema fornito non esiste\n"
+							+ " - L'algoritmo selezionato non è adatto a risolvere un problema di questa complessità";
+				}
 			}
-		r[0]=structGoal.printMov();
-		r[1] = getPath(structGoal,k) + node.print();
-		//System.out.println("fine ampiezza"+ r[0] +"-" +r[1]);
+
 		return r;
 	}
 	
 	//-------------------------------------------------------------------------
 	//
+	
+	
+	private String inverti(String appoggio) 
+	{
+		int k=1;
+		String path="";
+		while(appoggio.length()-k>0 && appoggio!=null)
+		{
+			switch (appoggio.charAt(appoggio.length()-k))
+			{
+			case 'U':
+				path=path + 'D';
+				break;
+			case 'D':
+				path=path + 'U';
+				break;
+			case 'R':
+				path=path + 'L';
+				break;
+			case 'L':
+				path=path + 'R';
+				break;
+			}
+			k++;
+		}
+		return path;
+	}
+
+	
 	//void that print the final output
 	private String getPath(structNode app, int i) 
 	{
