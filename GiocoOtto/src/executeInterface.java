@@ -44,6 +44,7 @@ public class executeInterface {
 	private int soluzione[][];
 	private int m[][];
 	private int method;
+	private int mosse=0;
 	private JFrame frame;
 	private JButton button00;
 	private JButton button10;
@@ -123,7 +124,7 @@ public class executeInterface {
 			frame.setTitle("AStar con distanza di Hamming");
 			break;
 		}
-		
+
 		JSplitPane splitPane = new JSplitPane();
 		setSplit(splitPane);
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -368,8 +369,8 @@ public class executeInterface {
 			setButton( button33);
 			button33.setText(String.valueOf(m[3][3]));
 		}
-		
-		
+	
+	
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(null);
 		splitPane_2.setLeftComponent(panel_1);
@@ -392,7 +393,6 @@ public class executeInterface {
 		
 		JPanel panel_7 = new JPanel();
 		splitPane_21.setRightComponent(panel_7);
-		
 		JSplitPane splitPane_22 = new JSplitPane();
 		setSplit(splitPane_22);
 		splitPane_22.setResizeWeight(0.9);
@@ -402,14 +402,22 @@ public class executeInterface {
 		JPanel panel_5 = new JPanel();
 		splitPane_22.setRightComponent(panel_5);
 		
+		
 
 
 		textArea = new JTextArea();
-		JScrollPane scroll = new JScrollPane (textArea, 
-				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane scroll = new JScrollPane (textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		splitPane_22.setLeftComponent(scroll);
-		
-	    ButtonGroup group = new ButtonGroup();
+		if(method!=5)
+		{
+			splitPane_1.setResizeWeight(0.001);
+			splitPane_19.setResizeWeight(0.001);
+		}
+		else
+		{
+			splitPane_1.setResizeWeight(0.9);
+			splitPane_19.setResizeWeight(0.9);
+		}
 		
 		JPanel panel_6 = new JPanel();
 		splitPane_20.setLeftComponent(panel_6);
@@ -419,9 +427,15 @@ public class executeInterface {
 		
 		JPanel panel_2 = new JPanel();
 		splitPane.setLeftComponent(panel_2);
-		ButtonGroup group2 = new ButtonGroup();
+		if(method!=5)
+			setVis(false);
+		else 
+		{
+			textArea.setVisible(false);
+			scroll.setVisible(false);
+		}
 		frame.setVisible(true);
-
+		
 		
 		button00.addActionListener(new ActionListener() 
 		{
@@ -553,10 +567,46 @@ public class executeInterface {
 		});
 	}
 	
+	private void setVis(boolean b) 
+	{
+		button00.setVisible(b);
+		button10.setVisible(b);
+		button20.setVisible(b);
+		button30.setVisible(b);
+		button01.setVisible(b);
+		button11.setVisible(b);
+		button21.setVisible(b);
+		button31.setVisible(b);
+		button02.setVisible(b);
+		button12.setVisible(b);
+		button22.setVisible(b);
+		button32.setVisible(b);
+		button03.setVisible(b);
+		button13.setVisible(b);
+		button23.setVisible(b);
+		button33.setVisible(b);	
+		button00.setText("");
+		button10.setText("");
+		button20.setText("");
+		button30.setText("");
+		button01.setText("");
+		button11.setText("");
+		button21.setText("");
+		button31.setText("");
+		button02.setText("");
+		button12.setText("");
+		button22.setText("");
+		button32.setText("");
+		button03.setText("");
+		button13.setText("");
+		button23.setText("");
+		button33.setText("");	
+	}
+
 	//send text and moves to visualize the solution of algorithms
 	public void visualizza(String mov, String stamp)
 	{
-		System.out.println("prima di entrare"+ mov +"-" +stamp);
+		//System.out.println("prima di entrare"+ mov +"-" +stamp);
 		textArea.setText(stamp);
 		cmdSend(mov);
 	}
@@ -564,24 +614,10 @@ public class executeInterface {
 	//send all the commands contained in the command string once every loop, to visualize them
 	private void cmdSend(String s)
 	{
-
-		long startTime = System.currentTimeMillis();
-		long elapsedTime = 0L;
 		int i=0;
-
-
-		for(i=0; i<s.length();i++)
-		{
-			char cmd;
-			cmd=s.charAt(i);
-			traduci(cmd);
-			while (elapsedTime < 2000 && i<s.length()) 
-			{
-			    //perform db poll/check
-			    elapsedTime = (new Date()).getTime() - startTime;
-			}
-		}
-			//pausa di tot millisecondi da uno spostamento all'altro
+		char cmd;
+		cmd=s.charAt(i);
+		traduci(cmd);
 	}
 	
 	//set split properties
@@ -593,8 +629,13 @@ public class executeInterface {
 	//set the color and the dimension of game's button
 	private void setButton(JButton a)
 	{
+		int b;
+		if(method!=5)
+			b=0;
+		else
+			b=100;
 		a.setBackground(Color.white);
-		a.setPreferredSize(new Dimension(50, 50));
+		a.setPreferredSize(new Dimension(b, b));
 	}
 	
 	//make the user play the game
@@ -614,8 +655,9 @@ public class executeInterface {
 				traduci('L');
 			else if(y-1>=0 &&(x==pos_zero[0] && y-1==pos_zero[1]))
 				traduci('R');
+			mosse++;
 			if(!k && isGoal())
-				JOptionPane.showMessageDialog(null, "Complimenti, hai vinto!!!!",null, JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Complimenti, hai vinto!!!!\n Il numero di mosse eseguite è di: "+mosse,null, JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	

@@ -81,7 +81,7 @@ public class userInterface {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 525, 306);
+		frame.setBounds(100, 100, 612, 389);
 		Dimension min=new Dimension();
 		min.setSize(525, 306);
 		frame.setMinimumSize(min);
@@ -339,6 +339,9 @@ public class userInterface {
 		JPanel panel_7 = new JPanel();
 		splitPane_23.setLeftComponent(panel_7);
 		
+		JButton clean = new JButton("Pulisci");
+		panel_7.add(clean);
+		
 		JPanel panel_9 = new JPanel();
 		splitPane_23.setRightComponent(panel_9);
 		
@@ -349,12 +352,23 @@ public class userInterface {
 		JPanel panel_6 = new JPanel();
 		splitPane_20.setLeftComponent(panel_6);
 		
+		JSplitPane splitPane_24 = new JSplitPane();
+		setSplit(splitPane_24);
+		splitPane_24.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_19.setLeftComponent(splitPane_24);
+		
 		JPanel panel = new JPanel();
-		splitPane_19.setLeftComponent(panel);
+		splitPane_24.setLeftComponent(panel);
 		
 		JLabel istrLabel = new JLabel("Inserisci la composizione iniziale e seleziona il metodo risolutivo o gioca");
 		istrLabel.setFont(new Font("Verdana", Font.PLAIN, 14));
 		panel.add(istrLabel);
+		
+		JPanel panel_10 = new JPanel();
+		splitPane_24.setRightComponent(panel_10);
+		
+		JLabel lblNewLabel = new JLabel("L'operazione da te selezionata potrebbe richiedere al massimo 20 secondi");
+		panel_10.add(lblNewLabel);
 		
 		JPanel panel_2 = new JPanel();
 		splitPane.setLeftComponent(panel_2);
@@ -399,6 +413,36 @@ public class userInterface {
 	        	textField33.setVisible(true);
 	        }
 	    });
+		clean.addActionListener(new ActionListener() 
+		{
+	        @Override
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	textField00.setText("");
+	        	textField10.setText("");
+	        	textField20.setText("");
+	        	
+	        	textField01.setText("");
+	        	textField11.setText("");
+	        	textField21.setText("");
+
+	        	textField02.setText("");
+	        	textField12.setText("");
+	        	textField22.setText("");
+	        	if(rdbQuindici.isSelected())
+		    	{
+	        		textField30.setText("");
+		        	textField31.setText("");
+		        	textField32.setText("");
+		        	textField03.setText("");
+		        	textField13.setText("");
+		        	textField23.setText("");
+		        	textField33.setText("");
+		    	}
+
+
+	        }
+	    });
 		ButtonGroup group2 = new ButtonGroup();
 	    group2.add(rdbOtto);
 	    group2.add(rdbQuindici);
@@ -407,9 +451,6 @@ public class userInterface {
 		    @Override
 		    public void actionPerformed(ActionEvent e) 
 		    {
-		    	//passa valori a funzione selezionata
-		        //System.out.println("premo");
-		    	//Alert per dire che ci potrebbe mettere un po
 		    	int m[][];
 		    	boolean k=true;
 		    	if(rdbQuindici.isSelected())
@@ -521,9 +562,7 @@ public class userInterface {
 	}
 	private void setText(JTextField a)
 	{
-		//a.setSize(2, 2);
 		a.setColumns(4);
-		//a.setBorder(null);
 	}
 	private boolean controlAll(boolean cond)
 	{

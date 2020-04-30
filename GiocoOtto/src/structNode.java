@@ -123,19 +123,21 @@ public class structNode
 	//print matrix and zero coord of structNode
 	public String print()
 	{
-		String s="[";
+		String s="";
 		for(int i=0;i<this.mLength();i++)
 			for(int j=0;j<this.mLength();j++)
-				if((j+1)%this.mLength()==0)
-					s = s + m[i][j]+"]\n[";
+			{
+				if(j==0)
+					s = s + "[ ";
+				if(m[i][j]<10)
+					s = s + m[i][j] + "   ";
 				else
-					s = s + m[i][j]+"     ";
+					s = s + m[i][j]+ " ";
+				if((j+1)%this.mLength()==0)
+					s = s +" ]\n";
+			}
 		s=s+"\n\n";
-		//s=s+"x:"+this.x+"   Y:"+this.y+"]\n\n";
 		return s;
-	/*	System.out.print("[Mov: "+mov+"]\n");
-		System.out.print("[Costo: "+this.getCost()+"]\n");
-		System.out.print("[Livello: "+this.getLevel()+"]\n");*/
 	}
 	//return the position of the searched element inside the matrix
 	public int[] returnPosition(int element)
