@@ -288,7 +288,7 @@ public class otto
 		}
 		else
 		{
-			while(!openlist.isEmpty() && !goal )//&& (System.currentTimeMillis()-inizio)/1000<20)
+			while(!openlist.isEmpty() && !goal && (System.currentTimeMillis()-inizio)/1000<20)
 			{
 				//1 - DOWN-------------------------------------------------------------------------------
 				if(app.returnx()<app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
@@ -443,7 +443,7 @@ public class otto
 			}
 			if((System.currentTimeMillis()-inizio)/1000<20)
 			{
-				System.out.println(structGoal.printMov());
+				//System.out.println(structGoal.printMov());
 				r[0]=structGoal.printMov();
 				r[1] = getPath(structGoal,k);
 			}
@@ -651,8 +651,8 @@ public class otto
 	    fine = System.currentTimeMillis()-inizio;
 		fine=fine/1000;
 
-		path=path + "Execution time: " + fine + "\n";
-		path=path + "Number of expanded nodes: " + i +"\n";
+		path=path + "Tempo di esecuzione: " + fine + "\n";
+		path=path + "Numero di nodi espansi: " + i +"\n";
 		while(k<app.printMov().length() && app!=null)
 		{
 			switch (app.printMov().charAt(k))
@@ -674,7 +674,7 @@ public class otto
 				path=path + node.print();
 				break;
 			case 'S':
-				path=path +"Soluzione:\nNodo di partenza:\n";
+				path=path +"Soluzione:\nNodo di partenza:\n\n";
 				path=path + node.print();
 				break;
 			}

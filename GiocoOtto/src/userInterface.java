@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import com.jgoodies.forms.layout.FormSpecs;
@@ -341,8 +342,10 @@ public class userInterface {
 	    
 	    JButton clean = new JButton("Pulisci");
 	    panel_11.add(clean);
+	    clean.setBackground(Color.white);
 	    
 	    JButton casuale = new JButton("Genera Casuale");
+	    casuale.setBackground(Color.white);
 	    panel_11.add(casuale);
 	    
 	    casuale.addActionListener(new ActionListener() 
@@ -355,6 +358,8 @@ public class userInterface {
 
 	    });
 	    JButton insertButton = new JButton("Esegui");
+	    insertButton.setBackground(Color.white);
+	    insertButton.setForeground(Color.blue);
 	    panel_11.add(insertButton);
 	    
 	    clean.addActionListener(new ActionListener() 
@@ -362,27 +367,7 @@ public class userInterface {
 	        @Override
 	        public void actionPerformed(ActionEvent e) 
 	        {
-	        	textField00.setText("");
-	        	textField10.setText("");
-	        	textField20.setText("");
-	        	
-	        	textField01.setText("");
-	        	textField11.setText("");
-	        	textField21.setText("");
-
-	        	textField02.setText("");
-	        	textField12.setText("");
-	        	textField22.setText("");
-
-        		textField30.setText("");
-	        	textField31.setText("");
-	        	textField32.setText("");
-	        	textField03.setText("");
-	        	textField13.setText("");
-	        	textField23.setText("");
-	        	textField33.setText("");
-
-
+	        	pulisci();
 	        }
 	    });
 	    
@@ -440,7 +425,7 @@ public class userInterface {
 	        	textField31.setVisible(false);
 	        	textField32.setVisible(false);
 	        	textField33.setVisible(false);
-
+	        	//pulisci();
 	        }
 	    });
 		//radio button 15 game
@@ -673,7 +658,7 @@ public class userInterface {
 		}
 		if(k==true && value>15 || value<0)
 		{
-			JOptionPane.showMessageDialog(null, "Devi inserire valori compresi tra 0 e 15 (0 o nulla per la cella vuota)",null, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Devi inserire valori compresi tra 0 e 15 (0 per la cella vuota)",null, JOptionPane.ERROR_MESSAGE);
 			res=false;
 		}
 		else
@@ -823,5 +808,28 @@ public class userInterface {
 						x[1]=j;
 					}
 			return x;
+		}
+		
+		private void pulisci()
+		{
+			textField00.setText("");
+        	textField10.setText("");
+        	textField20.setText("");
+        	
+        	textField01.setText("");
+        	textField11.setText("");
+        	textField21.setText("");
+
+        	textField02.setText("");
+        	textField12.setText("");
+        	textField22.setText("");
+
+    		textField30.setText("");
+        	textField31.setText("");
+        	textField32.setText("");
+        	textField03.setText("");
+        	textField13.setText("");
+        	textField23.setText("");
+        	textField33.setText("");
 		}
 }

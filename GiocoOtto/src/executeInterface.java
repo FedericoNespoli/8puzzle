@@ -407,6 +407,7 @@ public class executeInterface {
 
 
 		textArea = new JTextArea();
+		textArea.setFont(new Font("Mongolian Baiti", Font.PLAIN, 16));
 		 scroll = new JScrollPane (textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		splitPane_22.setLeftComponent(scroll);
 		if(method!=5)
