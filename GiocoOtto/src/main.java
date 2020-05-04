@@ -4,5 +4,4 @@ public class main {
 	{
 			userInterface window = new userInterface();
 	}
-
 }
