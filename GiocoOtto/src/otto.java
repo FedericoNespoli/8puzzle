@@ -288,10 +288,10 @@ public class otto
 		}
 		else
 		{
-			while(!openlist.isEmpty() && !goal)// && ((System.currentTimeMillis()-inizio)/1000<20))
+			while(!openlist.isEmpty() && !goal )//&& (System.currentTimeMillis()-inizio)/1000<20)
 			{
 				//1 - DOWN-------------------------------------------------------------------------------
-				if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
+				if(app.returnx()<app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
 				{
 					k++;
 					copy=app.clone();
@@ -310,7 +310,7 @@ public class otto
 					}
 				}
 				//1 - UP
-				if(!goal && app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D')
+				if(!goal && app.returnx()>0 && app.printMov().charAt(app.printMov().length()-1)!='D')
 				{
 					k++;
 					copy=app.clone();
@@ -327,7 +327,7 @@ public class otto
 					}
 				}
 				//1 - RIGHT
-				if(!goal && app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
+				if(!goal && app.returny()<app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
 				{
 					k++;
 					copy=app.clone();
@@ -344,7 +344,7 @@ public class otto
 					}
 				}
 				//1 - LEFT
-				if(!goal && app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
+				if(!goal && app.returny()>0 && app.printMov().charAt(app.printMov().length()-1)!='R')
 				{
 					k++;
 					copy=app.clone();
@@ -361,7 +361,7 @@ public class otto
 					}
 				}
 				//2 - DOWN-------------------------------------------------------------------------------
-				if(!goal && app1.returnx()!=app1.mLength()-1 && app1.printMov().charAt(app1.printMov().length()-1)!='U')
+				if(!goal && app1.returnx()<app1.mLength()-1 && app1.printMov().charAt(app1.printMov().length()-1)!='U')
 				{
 					k++;
 					copy=app1.clone();
@@ -370,15 +370,15 @@ public class otto
 					if(contain(copy,openlist))
 					{
 						goal=true;
-						int j=retIndex(copy,openlist1);
-						structGoal=openlist1.get(j);
+						int j=retIndex(copy,openlist);
+						structGoal=openlist.get(j);
 						appoggio=copy.printMov();
 						appoggio=inverti(appoggio);
 						structGoal.assignMov(appoggio);
 					}
 				}
 				//2 - UP
-				if(!goal && app1.returnx()!=0 && app1.printMov().charAt(app1.printMov().length()-1)!='D')
+				if(!goal && app1.returnx()>0 && app1.printMov().charAt(app1.printMov().length()-1)!='D')
 				{
 					k++;
 					copy=app1.clone();
@@ -387,15 +387,15 @@ public class otto
 					if(contain(copy,openlist))
 					{
 						goal=true;
-						int j=retIndex(copy,openlist1);
-						structGoal=openlist1.get(j);
+						int j=retIndex(copy,openlist);
+						structGoal=openlist.get(j);
 						appoggio=copy.printMov();
 						appoggio=inverti(appoggio);
 						structGoal.assignMov(appoggio);
 					}
 				}
 				//2 - RIGHT
-				if(!goal && app1.returny()!=app1.mLength()-1 && app1.printMov().charAt(app1.printMov().length()-1)!='L')
+				if(!goal && app1.returny()<app1.mLength()-1 && app1.printMov().charAt(app1.printMov().length()-1)!='L')
 				{
 					k++;
 					copy=app1.clone();
@@ -404,15 +404,15 @@ public class otto
 					if(contain(copy,openlist))
 					{
 						goal=true;
-						int j=retIndex(copy,openlist1);
-						structGoal=openlist1.get(j);
+						int j=retIndex(copy,openlist);
+						structGoal=openlist.get(j);
 						appoggio=copy.printMov();
 						appoggio=inverti(appoggio);
 						structGoal.assignMov(appoggio);
 					}
 				}
 				//2 - LEFT
-				if(!goal && app1.returny()!=0 && app1.printMov().charAt(app1.printMov().length()-1)!='R')
+				if(!goal && app1.returny()>0 && app1.printMov().charAt(app1.printMov().length()-1)!='R')
 				{
 					k++;
 					copy=app1.clone();
@@ -421,8 +421,8 @@ public class otto
 					if(contain(copy,openlist))
 					{
 						goal=true;
-						int j=retIndex(copy,openlist1);
-						structGoal=openlist1.get(j);
+						int j=retIndex(copy,openlist);
+						structGoal=openlist.get(j);
 						appoggio=copy.printMov();
 						//System.out.println("8"+structGoal.printMov()+"\n");
 						//System.out.println(appoggio+"\n");
@@ -481,7 +481,7 @@ public class otto
 		}
 		else
 			{
-				while(!goal)// && ((System.currentTimeMillis()-inizio)/1000<20))
+				while(!goal && ((System.currentTimeMillis()-inizio)/1000<20))
 				//while(k<5)
 				{
 					i=0;

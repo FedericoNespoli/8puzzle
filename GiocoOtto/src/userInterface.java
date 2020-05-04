@@ -20,6 +20,7 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import net.miginfocom.swing.MigLayout;
 import java.awt.FlowLayout;
@@ -308,27 +309,83 @@ public class userInterface {
 		rdb6.setHorizontalAlignment(SwingConstants.TRAILING);
 		panel_5.add(rdb6);
 		
-		JPanel panel_8 = new JPanel();
-		splitPane_22.setRightComponent(panel_8);
-		
-		JRadioButton rdb3 = new JRadioButton("AStar Manhattan");
-		panel_8.add(rdb3);
-		
-		JRadioButton rdb4 = new JRadioButton("Ricerca bidirezionale");
-		panel_8.add(rdb4);
-		
-	    JRadioButton rdb5 = new JRadioButton("Gioca");
-	    panel_8.add(rdb5);
-		
 	    ButtonGroup group = new ButtonGroup();
 	    group.add(rdb1);
 	    group.add(rdb2);
+	    group.add(rdb6);
+	    rdb1.setSelected(true);
+	    
+	    JSplitPane splitPane_25 = new JSplitPane();
+	    setSplit(splitPane_25);
+	    splitPane_25.setOrientation(JSplitPane.VERTICAL_SPLIT);
+	    splitPane_22.setRightComponent(splitPane_25);
+	    
+	    JPanel panel_8 = new JPanel();
+	    splitPane_25.setLeftComponent(panel_8);
+	    
+	    JRadioButton rdb3 = new JRadioButton("AStar Manhattan");
+	    panel_8.add(rdb3);
+	    
+	    JRadioButton rdb4 = new JRadioButton("Ricerca bidirezionale");
+	    panel_8.add(rdb4);
+	    
+	    JRadioButton rdb5 = new JRadioButton("Gioca");
+	    panel_8.add(rdb5);
+	    
 	    group.add(rdb3);
 	    group.add(rdb4);
 	    group.add(rdb5);
-	    group.add(rdb6);
-	    rdb1.setSelected(true);
+	    
+	    JPanel panel_11 = new JPanel();
+	    splitPane_25.setRightComponent(panel_11);
+	    
+	    JButton clean = new JButton("Pulisci");
+	    panel_11.add(clean);
+	    
+	    JButton casuale = new JButton("Genera Casuale");
+	    panel_11.add(casuale);
+	    
+	    casuale.addActionListener(new ActionListener() 
+	    {
+	        @Override
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	generaCasuale();
+	        }
 
+	    });
+	    JButton insertButton = new JButton("Esegui");
+	    panel_11.add(insertButton);
+	    
+	    clean.addActionListener(new ActionListener() 
+	    {
+	        @Override
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	textField00.setText("");
+	        	textField10.setText("");
+	        	textField20.setText("");
+	        	
+	        	textField01.setText("");
+	        	textField11.setText("");
+	        	textField21.setText("");
+
+	        	textField02.setText("");
+	        	textField12.setText("");
+	        	textField22.setText("");
+
+        		textField30.setText("");
+	        	textField31.setText("");
+	        	textField32.setText("");
+	        	textField03.setText("");
+	        	textField13.setText("");
+	        	textField23.setText("");
+	        	textField33.setText("");
+
+
+	        }
+	    });
+	    
 	    
 		JSplitPane splitPane_23 = new JSplitPane();
 		setSplit(splitPane_23);
@@ -339,15 +396,8 @@ public class userInterface {
 		JPanel panel_7 = new JPanel();
 		splitPane_23.setLeftComponent(panel_7);
 		
-		JButton clean = new JButton("Pulisci");
-		panel_7.add(clean);
-		
 		JPanel panel_9 = new JPanel();
 		splitPane_23.setRightComponent(panel_9);
-		
-		JButton insertButton = new JButton("Submit");
-
-		panel_9.add(insertButton);
 		
 		JPanel panel_6 = new JPanel();
 		splitPane_20.setLeftComponent(panel_6);
@@ -413,158 +463,128 @@ public class userInterface {
 	        	textField33.setVisible(true);
 	        }
 	    });
-		clean.addActionListener(new ActionListener() 
-		{
-	        @Override
-	        public void actionPerformed(ActionEvent e) 
-	        {
-	        	textField00.setText("");
-	        	textField10.setText("");
-	        	textField20.setText("");
-	        	
-	        	textField01.setText("");
-	        	textField11.setText("");
-	        	textField21.setText("");
-
-	        	textField02.setText("");
-	        	textField12.setText("");
-	        	textField22.setText("");
-	        	if(rdbQuindici.isSelected())
-		    	{
-	        		textField30.setText("");
-		        	textField31.setText("");
-		        	textField32.setText("");
-		        	textField03.setText("");
-		        	textField13.setText("");
-		        	textField23.setText("");
-		        	textField33.setText("");
-		    	}
-
-
-	        }
-	    });
 		ButtonGroup group2 = new ButtonGroup();
 	    group2.add(rdbOtto);
 	    group2.add(rdbQuindici);
-		insertButton.addActionListener(new ActionListener() 
-		{
-		    @Override
-		    public void actionPerformed(ActionEvent e) 
-		    {
-		    	int m[][];
-		    	boolean k=true;
-		    	if(rdbQuindici.isSelected())
-		    	{
-		    		//System.out.println("15");
-		    		m=new int[4][4];
-		    		k=controlAll(true);
-		    		if(k)
-		    		{
-		    			m[0][0]=Integer.parseInt(textField00.getText());
-		    			m[0][1]=Integer.parseInt(textField01.getText());
-			    		m[0][2]=Integer.parseInt(textField02.getText());
-			    		m[0][3]=Integer.parseInt(textField03.getText());
-			    		m[1][0]=Integer.parseInt(textField10.getText());
-			    		m[1][1]=Integer.parseInt(textField11.getText());
-			    		m[1][2]=Integer.parseInt(textField12.getText());
-			    		m[1][3]=Integer.parseInt(textField13.getText());
-			    		m[2][0]=Integer.parseInt(textField20.getText());
-			    		m[2][1]=Integer.parseInt(textField21.getText());
-			    		m[2][2]=Integer.parseInt(textField22.getText());
-			    		m[2][3]=Integer.parseInt(textField23.getText());
-			    		m[3][0]=Integer.parseInt(textField30.getText());
-			    		m[3][1]=Integer.parseInt(textField31.getText());
-			    		m[3][2]=Integer.parseInt(textField32.getText());
-			    		m[3][3]=Integer.parseInt(textField33.getText());
-		    		}
-		    	}
-		    	else
-		    	{
-		    		//System.out.println("8");
-		    		m=new int[3][3];
-		    		k=controlAll(false);
-		    		if(k)
-		    		{
-		    			m[0][0]=Integer.parseInt(textField00.getText());
-		    			m[0][1]=Integer.parseInt(textField01.getText());
-			    		m[0][2]=Integer.parseInt(textField02.getText());
-			    		m[1][0]=Integer.parseInt(textField10.getText());
-			    		m[1][1]=Integer.parseInt(textField11.getText());
-			    		m[1][2]=Integer.parseInt(textField12.getText());
-			    		m[2][0]=Integer.parseInt(textField20.getText());
-			    		m[2][1]=Integer.parseInt(textField21.getText());
-			    		m[2][2]=Integer.parseInt(textField22.getText());
-		    		}
-		    	}
-		    	if(k&&controlMatrix(m))
+	    insertButton.addActionListener(new ActionListener() 
+	    {
+	        @Override
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	int m[][];
+	        	boolean k=true;
+	        	if(rdbQuindici.isSelected())
+	        	{
+	        		//System.out.println("15");
+	        		m=new int[4][4];
+	        		k=controlAll(true);
+	        		if(k)
+	        		{
+	        			m[0][0]=Integer.parseInt(textField00.getText());
+	        			m[0][1]=Integer.parseInt(textField01.getText());
+	    	    		m[0][2]=Integer.parseInt(textField02.getText());
+	    	    		m[0][3]=Integer.parseInt(textField03.getText());
+	    	    		m[1][0]=Integer.parseInt(textField10.getText());
+	    	    		m[1][1]=Integer.parseInt(textField11.getText());
+	    	    		m[1][2]=Integer.parseInt(textField12.getText());
+	    	    		m[1][3]=Integer.parseInt(textField13.getText());
+	    	    		m[2][0]=Integer.parseInt(textField20.getText());
+	    	    		m[2][1]=Integer.parseInt(textField21.getText());
+	    	    		m[2][2]=Integer.parseInt(textField22.getText());
+	    	    		m[2][3]=Integer.parseInt(textField23.getText());
+	    	    		m[3][0]=Integer.parseInt(textField30.getText());
+	    	    		m[3][1]=Integer.parseInt(textField31.getText());
+	    	    		m[3][2]=Integer.parseInt(textField32.getText());
+	    	    		m[3][3]=Integer.parseInt(textField33.getText());
+	        		}
+	        	}
+	        	else
+	        	{
+	        		//System.out.println("8");
+	        		m=new int[3][3];
+	        		k=controlAll(false);
+	        		if(k)
+	        		{
+	        			m[0][0]=Integer.parseInt(textField00.getText());
+	        			m[0][1]=Integer.parseInt(textField01.getText());
+	    	    		m[0][2]=Integer.parseInt(textField02.getText());
+	    	    		m[1][0]=Integer.parseInt(textField10.getText());
+	    	    		m[1][1]=Integer.parseInt(textField11.getText());
+	    	    		m[1][2]=Integer.parseInt(textField12.getText());
+	    	    		m[2][0]=Integer.parseInt(textField20.getText());
+	    	    		m[2][1]=Integer.parseInt(textField21.getText());
+	    	    		m[2][2]=Integer.parseInt(textField22.getText());
+	        		}
+	        	}
+	        	if(k&&controlMatrix(m))
 	    		{
-		    		boolean type=true;
-		    		int[][] s= {};
-		    		otto esegui=new otto(m);
-		    		String r[]= {"",""};
-		    		executeInterface show;
-		    		if(rdbOtto.isSelected())
-		    			type=false;
-		    		if(m.length==3)
-		    			 s= new int[][] {{1,2,3},{4,5,6},{7,8,0}};
-		    		else if(m.length==4)
-		    			 s= new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};
+	        		boolean type=true;
+	        		int[][] s= {};
+	        		otto esegui=new otto(m);
+	        		String r[]= {"",""};
+	        		executeInterface show;
+	        		if(rdbOtto.isSelected())
+	        			type=false;
+	        		if(m.length==3)
+	        			 s= new int[][] {{1,2,3},{4,5,6},{7,8,0}};
+	        		else if(m.length==4)
+	        			 s= new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};
 	    			//passa valori a funzioni e scegli cosa fare in base ai focus
-		    		if(rdb1.isSelected())//ampiezza
-		    		{
-		    			r=esegui.ampiezza();
-		    			show= new executeInterface(m,type,1);
-		    			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
-		    			show.visualizza(r[0],r[1]);
-		    		}
-		    		else if(rdb2.isSelected())//profondità
-		    		{
-		    			r=esegui.profondità();
-		    			show= new executeInterface(m,type,2);
-		    			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
-		    			show.visualizza(r[0],r[1]);
-		    		}
-		    		else if(rdb3.isSelected())//manhattan
-		    		{
-		    			r=esegui.Astar(1);
-		    			show= new executeInterface(m,type,3);
-		    			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
-		    			show.visualizza(r[0],r[1]);
-		    		}
-		    		else if(rdb4.isSelected())//Bidirezionale
-		    		{
-		    			r=esegui.bidirezionale();
-		    			show= new executeInterface(m,type,4);
-		    			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
-		    			show.visualizza(r[0],r[1]);
-		    		}
-		    		else if(rdb5.isSelected())//gioca
-		    		{
-		    			boolean equal=true;
-		    			for(int i=0;i<m[0].length && equal!=false;i++)
-		    				for(int j=0;j<m[1].length && equal!=false;j++)
-		    					if(s[i][j]!=m[i][j])
-		    						equal=false;
-		    			if(equal)
-		    				JOptionPane.showMessageDialog(null, "I valori da te inseriti corrispondono alla soluzione del puzzle",null, JOptionPane.INFORMATION_MESSAGE);
-		    			else
-		    				show= new executeInterface(m,type,5);
-		    		}
-		    		else if(rdb6.isSelected())//Hamming
-		    		{
-		    			r=esegui.Astar(0);
-		    			show= new executeInterface(m,type,6);
-		    			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
-		    			show.visualizza(r[0],r[1]);
-		    		}
+	        		if(rdb1.isSelected())//ampiezza
+	        		{
+	        			r=esegui.ampiezza();
+	        			show= new executeInterface(m,type,1);
+	        			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+	        			show.visualizza(r[0],r[1]);
+	        		}
+	        		else if(rdb2.isSelected())//profondità
+	        		{
+	        			r=esegui.profondità();
+	        			show= new executeInterface(m,type,2);
+	        			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+	        			show.visualizza(r[0],r[1]);
+	        		}
+	        		else if(rdb3.isSelected())//manhattan
+	        		{
+	        			r=esegui.Astar(1);
+	        			show= new executeInterface(m,type,3);
+	        			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+	        			show.visualizza(r[0],r[1]);
+	        		}
+	        		else if(rdb4.isSelected())//Bidirezionale
+	        		{
+	        			r=esegui.bidirezionale();
+	        			show= new executeInterface(m,type,4);
+	        			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+	        			show.visualizza(r[0],r[1]);
+	        		}
+	        		else if(rdb5.isSelected())//gioca
+	        		{
+	        			boolean equal=true;
+	        			for(int i=0;i<m[0].length && equal!=false;i++)
+	        				for(int j=0;j<m[1].length && equal!=false;j++)
+	        					if(s[i][j]!=m[i][j])
+	        						equal=false;
+	        			if(equal)
+	        				JOptionPane.showMessageDialog(null, "I valori da te inseriti corrispondono alla soluzione del puzzle",null, JOptionPane.INFORMATION_MESSAGE);
+	        			else
+	        				show= new executeInterface(m,type,5);
+	        		}
+	        		else if(rdb6.isSelected())//Hamming
+	        		{
+	        			r=esegui.Astar(0);
+	        			show= new executeInterface(m,type,6);
+	        			//System.out.println("prima di entrare"+ r[0] +"-" +r[1]);
+	        			show.visualizza(r[0],r[1]);
+	        		}
 	    		}
 	    		else
 	    		{
 	    			if(k&&!controlMatrix(m))
 	    				JOptionPane.showMessageDialog(null, "Hai inserito valori più di una volta",null, JOptionPane.ERROR_MESSAGE);
 	    		}
-		    }
-		});
+	        }
+	    });
 	}
 	
 	private void setSplit(JSplitPane a)
@@ -680,4 +700,128 @@ public class userInterface {
 			}
 		return k;
 	}
+
+	private void generaCasuale() 
+	{
+		//decido quante mosse fare tra 10 e 50
+		Random rnd = new Random();
+		boolean k=false;
+		if(textField33.isVisible())
+			k=true;
+		int n,i=0,j;
+		int mossa,passi;
+		int m[][];
+		int x,y;
+		if(k)
+		{
+			m= new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};
+			x=3;
+			y=3;
+		}
+		else
+		{
+			m= new int[][] {{1,2,3},{4,5,6},{7,8,0}};	
+			x=2;
+			y=2;
+		}
+		n = rnd.nextInt(21)+10;
+		
+		//eseguo mosse
+		while(i<n)
+		{
+			mossa = rnd.nextInt(4);
+			if(k)
+				passi = rnd.nextInt(4)+1;
+			else
+				passi = rnd.nextInt(3)+1;
+			switch(mossa)
+			{
+			case 0://up
+				j=x;
+				while(j>0 && passi>0)
+				{
+					j--;
+					passi--;
+					m[x][y]=m[j][y];
+					m[j][y]=0;
+					x=j;
+				}
+				break;
+			case 1://down
+				j=x;
+				while(j<m.length-1 && passi>0)
+				{
+					j++;
+					passi--;
+					m[x][y]=m[j][y];
+					m[j][y]=0;
+					x=j;
+				}
+				break;
+			case 2://right
+				j=y;
+				while(j<m.length-1 && passi>0)
+				{
+					j++;
+					passi--;
+					m[x][y]=m[x][j];
+					m[x][j]=0;
+					y=j;
+				}
+				break;
+			case 3://left
+				j=y;
+				while(j>0 && passi>0)
+				{
+					j--;
+					passi--;
+					m[x][y]=m[x][j];
+					m[x][j]=0;
+					y=j;
+				}
+				break;
+			}
+			i++;
+		}
+		riscrivi(k,m);
+	}
+	
+	private void riscrivi(boolean k, int m[][]) 
+	{
+		textField00.setText(String.valueOf(m[0][0]));
+		textField01.setText(String.valueOf(m[0][1]));
+		textField02.setText(String.valueOf(m[0][2]));
+		textField10.setText(String.valueOf(m[1][0]));
+		textField11.setText(String.valueOf(m[1][1]));
+		textField12.setText(String.valueOf(m[1][2]));
+		textField20.setText(String.valueOf(m[2][0]));
+		textField21.setText(String.valueOf(m[2][1]));
+		textField22.setText(String.valueOf(m[2][2]));
+		if(k)
+		{
+			textField03.setText(String.valueOf(m[0][3]));
+			textField13.setText(String.valueOf(m[1][3]));
+			textField23.setText(String.valueOf(m[2][3]));
+			textField30.setText(String.valueOf(m[3][0]));
+			textField31.setText(String.valueOf(m[3][1]));
+			textField32.setText(String.valueOf(m[3][2]));
+			textField33.setText(String.valueOf(m[3][3]));
+		}
+	}
+
+	//find the zero element into the matrix
+		private int[] findZero(int [][] m)
+		{
+			boolean k=false;
+			int x[]=new int[2];
+			for(int i=0;i<m[0].length && k==false;i++)
+				for(int j=0;j<m[1].length && k==false;j++)
+					if(m[i][j]==0)
+					{
+						k=true;
+						x[0]=i;
+						x[1]=j;
+					}
+			return x;
+		}
 }

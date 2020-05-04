@@ -128,7 +128,7 @@ public class structNode
 			for(int j=0;j<this.mLength();j++)
 			{
 				if(j==0)
-					s = s + "[ ";
+					s = s + "[   ";
 				if(m[i][j]<10)
 					s = s + m[i][j] + "   ";
 				else
