@@ -56,6 +56,7 @@ public class userInterface {
 	/**
 	 * Launch the application.
 	 */
+    /*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -68,14 +69,15 @@ public class userInterface {
 			}
 		});
 
-	}
+	}*/
 
 	/**
 	 * Create the application.
 	 */
-	public userInterface() {
+	public userInterface() 
+	{
 		initialize();
-		//rdbOtto.setSelected(true);
+		frame.setVisible(true);
 	}
 
 	/**
