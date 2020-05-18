@@ -63,7 +63,6 @@ public class otto
 				//DOWN
 				if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
 				{
-					k++;
 					copy=app.clone();
 					copy.zeroDown(true);					
 					openlist.add(copy);//add the element at the end of the list
@@ -76,7 +75,6 @@ public class otto
 				//UP
 				if(app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D')
 				{
-					k++;
 					copy=app.clone();
 					copy.zeroUp(true);
 					openlist.add(copy);
@@ -89,7 +87,6 @@ public class otto
 				//RIGHT
 				if(app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
 				{
-					k++;
 					copy=app.clone();
 					copy.zeroRight(true);
 					openlist.add(copy);
@@ -102,7 +99,6 @@ public class otto
 				//LEFT
 				if(app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
 				{
-					k++;
 					copy=app.clone();
 					copy.zeroLeft(true);
 					openlist.add(copy);
@@ -112,6 +108,7 @@ public class otto
 						structGoal=copy;
 					}
 				}
+				k++;
 				if(!openlist.isEmpty())
 				{
 					openlist.remove(0);
@@ -293,7 +290,6 @@ public class otto
 				//1 - DOWN-------------------------------------------------------------------------------
 				if(app.returnx()<app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
 				{
-					k++;
 					copy=app.clone();
 					copy.zeroDown(true);					
 					openlist.add(copy);//add the element at the end of the list
@@ -312,7 +308,6 @@ public class otto
 				//1 - UP
 				if(!goal && app.returnx()>0 && app.printMov().charAt(app.printMov().length()-1)!='D')
 				{
-					k++;
 					copy=app.clone();
 					copy.zeroUp(true);
 					openlist.add(copy);
@@ -329,7 +324,6 @@ public class otto
 				//1 - RIGHT
 				if(!goal && app.returny()<app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
 				{
-					k++;
 					copy=app.clone();
 					copy.zeroRight(true);
 					openlist.add(copy);
@@ -346,7 +340,6 @@ public class otto
 				//1 - LEFT
 				if(!goal && app.returny()>0 && app.printMov().charAt(app.printMov().length()-1)!='R')
 				{
-					k++;
 					copy=app.clone();
 					copy.zeroLeft(true);
 					openlist.add(copy);
@@ -363,7 +356,6 @@ public class otto
 				//2 - DOWN-------------------------------------------------------------------------------
 				if(!goal && app1.returnx()<app1.mLength()-1 && app1.printMov().charAt(app1.printMov().length()-1)!='U')
 				{
-					k++;
 					copy=app1.clone();
 					copy.zeroDown(true);					
 					openlist1.add(copy);//add the element at the end of the list
@@ -380,7 +372,6 @@ public class otto
 				//2 - UP
 				if(!goal && app1.returnx()>0 && app1.printMov().charAt(app1.printMov().length()-1)!='D')
 				{
-					k++;
 					copy=app1.clone();
 					copy.zeroUp(true);
 					openlist1.add(copy);
@@ -397,7 +388,6 @@ public class otto
 				//2 - RIGHT
 				if(!goal && app1.returny()<app1.mLength()-1 && app1.printMov().charAt(app1.printMov().length()-1)!='L')
 				{
-					k++;
 					copy=app1.clone();
 					copy.zeroRight(true);
 					openlist1.add(copy);
@@ -414,7 +404,6 @@ public class otto
 				//2 - LEFT
 				if(!goal && app1.returny()>0 && app1.printMov().charAt(app1.printMov().length()-1)!='R')
 				{
-					k++;
 					copy=app1.clone();
 					copy.zeroLeft(true);
 					openlist1.add(copy);
@@ -432,6 +421,7 @@ public class otto
 					}
 					//System.out.println("mosse"+structGoal.printMov());
 				}
+				k++;
 				if(!goal && !openlist.isEmpty())
 				{
 					giro++;
@@ -507,7 +497,6 @@ public class otto
 					openlist.remove(remove);
 					if(app.returnx()!=0 && app.printMov().charAt(app.printMov().length()-1)!='D')
 					{
-						k++;
 						copy=app.clone();
 						copy.zeroUp(true);
 						copy.setLevel(lvl+1);
@@ -528,7 +517,6 @@ public class otto
 					}
 					if(app.returnx()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='U')
 					{
-						k++;
 						copy=app.clone();
 						copy.zeroDown(true);
 						copy.setLevel(lvl+1);
@@ -550,7 +538,6 @@ public class otto
 					
 					if(app.returny()!=app.mLength()-1 && app.printMov().charAt(app.printMov().length()-1)!='L')
 					{
-						k++;
 						copy=app.clone();
 						copy.zeroRight(true);
 						copy.setLevel(lvl+1);
@@ -572,7 +559,6 @@ public class otto
 					
 					if(app.returny()!=0 && app.printMov().charAt(app.printMov().length()-1)!='R')
 					{
-						k++;
 						copy=app.clone();
 						copy.zeroLeft(true);
 						copy.setLevel(lvl+1);
@@ -593,6 +579,7 @@ public class otto
 					}
 					closedlist.add(app);
 					//System.out.println(k++);
+					k++;
 				}
 				if((System.currentTimeMillis()-inizio)/1000<20)
 				{
@@ -653,6 +640,7 @@ public class otto
 
 		path=path + "Tempo di esecuzione: " + fine + "\n";
 		path=path + "Numero di nodi espansi: " + i +"\n";
+		path=path + "Numero passi per arrivare alla soluzione: " + (app.printMov().length()-1) +"\n";
 		while(k<app.printMov().length() && app!=null)
 		{
 			switch (app.printMov().charAt(k))
