@@ -711,7 +711,7 @@ public class userInterface {
 			x=2;
 			y=2;
 		}
-		n = rnd.nextInt(21)+10;
+		n = rnd.nextInt(31)+10;
 		
 		//eseguo mosse
 		while(i<n)
